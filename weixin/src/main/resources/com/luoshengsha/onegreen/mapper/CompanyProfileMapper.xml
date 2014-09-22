@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.CompanyProfileMapper">
+	<!-- resultMap -->
+	<resultMap type="companyProfile" id="companyProfileResultMap">
+		<id property="id" column="id"/>
+		<collection property="images" column="id" select="getProfileImages"/>
+	</resultMap>
+	
+	<!-- 保存 -->
+	<insert id="save" parameterType="companyProfile" keyProperty="id" useGeneratedKeys="true">
+		insert into companyProfile(uuid,companyName,content,platform_id) values(#{uuid},#{companyName},#{content},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="companyProfile">
+		update companyProfile set companyName=#{companyName},content=#{content} where uuid=#{uuid}
+	</update>
+	
+	<!-- 根据平台获取 -->
+	<select id="getByPlatform" parameterType="platform" resultMap="companyProfileResultMap">
+		select * from companyProfile where platform_id=#{id}
+	</select>
+	
+	<!-- 根据id获取 -->
+	<select id="find" parameterType="int" resultMap="companyProfileResultMap">
+		select * from companyProfile where id=#{id}
+	</select>
+	
+	<!-- 根据uuid获取企业介绍 -->
+	<select id="getByUuid" parameterType="string" resultMap="companyProfileResultMap">
+		select * from companyProfile where uuid=#{uuid}
+	</select>
+	
+	<!-- 保存企业图片 -->
+	<insert id="saveProfileImages">
+		insert into companyProfile_images(profile_id,image_id) values(#{profile_id},#{image_id})
+	</insert>
+	
+	<!-- 删除企业图片 -->
+	<delete id="delProfileImages" parameterType="string">
+		delete from companyProfile_images where profile_id=#{profile_id}
+	</delete>
+	
+	<!-- 获取企业简介图片 -->
+	<select id="getProfileImages" parameterType="int" resultType="image">
+		select image.* from companyProfile_images cpi left join image on cpi.image_id=image.id where cpi.profile_id=#{profile_id}
+	</select>
+</mapper>

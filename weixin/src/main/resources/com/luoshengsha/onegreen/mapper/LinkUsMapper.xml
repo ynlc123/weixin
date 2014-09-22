@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.LinkUsMapper">
+	<!-- 保存联系我们 -->
+	<select id="save" parameterType="linkUs">
+		insert into linkUs(uuid,content,editTime,platform_id) values(#{uuid},#{content},#{editTime},#{platform.id})
+	</select>
+	
+	<!-- 编辑联系我们 -->
+	<update id="update" parameterType="linkUs">
+		update linkUs set content=#{content},editTime=#{editTime} where uuid=#{uuid}
+	</update>
+	
+	<!-- 根据id获取 -->
+	<select id="find" parameterType="string">
+		select * from linkUs where id=#{id}
+	</select>
+	
+	<!-- 根据公众平台获取联系我们 -->
+	<select id="getByPlatform" parameterType="platform" resultType="linkUs">
+		select * from linkUs where platform_id=#{id}
+	</select>
+	
+	<!-- 根据uuid获取 -->
+	<select id="getByUuid" parameterType="string" resultType="linkUs">
+		select * from linkUs where uuid=#{uuid}
+	</select>
+</mapper>

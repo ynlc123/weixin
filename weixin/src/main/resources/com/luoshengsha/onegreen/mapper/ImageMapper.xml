@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.ImageMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="image">
+		insert into image(uuid,title,path,createTime,platform_id) values(#{uuid},#{title},#{path},#{createTime},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="image">
+		update image set title=#{title},path=#{path} where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="int">
+		delete from image where uuid=#{uuid}
+	</delete>
+	
+	<!-- 根据id查找图片 -->
+	<select id="find" parameterType="int" resultType="image">
+		select * from image where id=#{id} or uuid=#{uuid}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultType="image">
+		select * from image 
+		where platform_id=#{platform.id}
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量(与查询配合使用) -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from image where platform_id=#{platform.id}
+	</select>
+</mapper>

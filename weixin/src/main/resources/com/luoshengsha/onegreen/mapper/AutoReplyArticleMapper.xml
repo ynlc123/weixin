@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.AutoReplyArticleMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="autoReplyArticle" keyProperty="id" useGeneratedKeys="true">
+		insert into autoReplyArticle(uuid,keywords,createTime,editTime,isValid,platform_id)
+		values(#{uuid},#{keywords},#{createTime},#{editTime},#{isValid},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="autoReplyArticle">
+		update autoReplyArticle set keywords=#{keywords},editTime=#{editTime},isValid=#{isValid} where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="int">
+		delete from autoReplyArticle where id=#{id}
+	</delete>
+	
+	<!-- resultMap -->
+	<resultMap type="autoReplyArticle" id="autoReplyArticleResultMap">
+		<id property="id" column="id"/>
+		<collection property="articles" column="id" ofType="article" select="com.luoshengsha.onegreen.mapper.ArticleMapper.getAutoReplyArticles"/>
+	</resultMap>
+	
+	<!-- 根据id查找 -->
+	<select id="find" parameterType="int" resultMap="autoReplyArticleResultMap">
+		select * from autoReplyArticle where id=#{id}
+	</select>
+	
+	<!-- 根据uuid查找 -->
+	<select id="getByUuid" parameterType="string" resultMap="autoReplyArticleResultMap">
+		select * from autoReplyArticle where uuid=#{uuid}
+	</select>
+	
+	<!-- 根据关键词查找 -->
+	<select id="getByKeywords" parameterType="string" resultMap="autoReplyArticleResultMap">
+		select * from autoReplyArticle where keywords=#{keywords}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultMap="autoReplyArticleResultMap">
+		select * from autoReplyArticle
+		<where>
+			<if test="platform != null">
+				platform_id=#{platform.id}
+			</if>
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量（与查询配合使用） -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from autoReplyArticle
+		<where>
+			<if test="platform != null">
+				platform_id=#{platform.id}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 设置是否禁用 -->
+	<update id="setStatus">
+		update autoReplyArticle set isValid=#{isValid} where id=#{autoReplyArticle.id}
+	</update>
+</mapper>

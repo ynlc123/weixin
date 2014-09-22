@@ -1,0 +1,11 @@
+.uploadify{clear:both;position:relative}
+.uploadify-queue{margin:10px 0}
+.uploadify-queue-item{background-color:#fafafa;padding:3px 6px 6px 6px;border:solid 1px #ddd;max-width:400px;margin-top:3px}
+.uploadify-queue-item:hover{background-color:#eaf2fe}
+.uploadify-error{background-color:#FDE5DD !important}
+.uploadify-queue-item .cancel a{background:url('uploadify-cancel.png') 0 0 no-repeat;float:right;height:16px;text-indent:-9999px;width:16px}
+.uploadify-queue-item.completed{background-color:#eee}
+.uploadify-queue-item:hover .uploadify-progress{background-color:#eee}
+.uploadify-progress{background-color:#eee;width:100%}
+.uploadify-queue-item:hover .uploadify-progress{background-color:#ccc}
+.uploadify-progress-bar{background-color:#0099FF;height:3px;width:1px}

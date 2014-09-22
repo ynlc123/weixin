@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.FansMapper">
+	<!-- 保存粉丝信息 -->
+	<insert id="save" parameterType="fans">
+		insert into fans(subscribe,openid,nickname,sex,language,city,province,country,headimgurl,
+						 subscribe_time,unionid,platform_id)
+		values(#{subscribe},#{openid},#{nickname},#{sex},#{language},#{city},#{province},#{country},#{headimgurl},
+			   #{subscribe_time},#{unionid},#{platform.id})
+	</insert>
+	
+	<!-- 更新粉丝信息 -->
+	<update id="update" parameterType="fans">
+		update fans set subscribe=#{subscribe},openid=#{openid},nickname=#{nickname},sex=#{sex},language=#{language}
+							city=#{city},province=#{province},country=#{country},headimgurl=#{headimgurl},
+							subscribe_time=#{subscribe_time},unionid=#{unionid}
+		where openid=#{openid}
+	</update>
+	
+	<!-- 取消关注 -->
+	<update id="unSubscribe" parameterType="fans" >
+		delete from fans where openid=#{openid} and platform_id=#{platform.id}
+	</update>
+	
+	<!-- 根据openid获取粉丝 -->
+	<select id="getByOpenid" parameterType="string" resultType="fans">
+		select * from fans where openid=#{openid}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultType="fans">
+		select * from fans
+		<where>
+			<if test="platform != null">
+				platform_id=#{platform.id}
+			</if>
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量（与查询配合使用） -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from fans
+		<where>
+			<if test="platform != null">
+				platform_id=#{platform.id}
+			</if>
+		</where>
+	</select>
+</mapper>

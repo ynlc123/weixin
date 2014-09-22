@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.PlatformMapper">
+	<!-- 保存公众平台信息 -->
+	<insert id="save" parameterType="platform">
+		insert into platform(uuid,originalId,platformNo,userName,password,appId,appSecret,customer_id,createTime,validTime,platformType,isAuth)
+		values(#{uuid},#{originalId},#{platformNo},#{userName},#{password},#{appId},#{appSecret},#{customer.id},#{createTime},#{validTime},#{platformType},#{isAuth})
+	</insert>
+	
+	<!-- 更新公众平台信息 -->
+	<update id="update" parameterType="platform">
+		update platform set originalId=#{originalId},platformNo=#{platformNo},userName=#{userName},password=#{password},
+							appId=#{appId},appSecret=#{appSecret},validTime=#{validTime},createTime=#{createTime},
+							editTime=#{editTime},platformType=#{platformType},isAuth=#{isAuth}
+		where id=#{id}
+	</update>
+	
+	<!-- 根据客户获取公众号信息 -->
+	<select id="getByCustomer" parameterType="customer" resultType="platform">
+		select * from platform where customer_id=#{id}
+	</select>
+	
+	<!-- 根据公众号原始id获取公众号信息 -->
+	<select id="getByOriginalId" parameterType="string" resultType="platform">
+		select * from platform where originalId=#{originalId}
+	</select>
+</mapper>

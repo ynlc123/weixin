@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- <properties resource="config.properties" /> -->
+	<settings>
+		<!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。默认：true  -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+	<typeAliases>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Customer" alias="customer"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Platform" alias="platform"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Fans" alias="fans"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.LinkUs" alias="linkUs"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Image" alias="image"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.CompanyProfile" alias="companyProfile"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.DefaultReplyMessage" alias="defaultReplyMessage"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Activities" alias="activities"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.Article" alias="article"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.AutoReplyArticle" alias="autoReplyArticle"/>
+	</typeAliases>
+</configuration>

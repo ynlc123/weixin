@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.ActivitiesMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="activities">
+		insert into activities(uuid,title,content,image_id,createTime,validDays,editTime,validTime,platform_id)
+		values(#{uuid},#{title},#{content},#{image.id},#{createTime},#{validDays},#{editTime},#{validTime},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="activities">
+		update activities set title=#{title},content=#{content},image_id=#{image.id},
+							  validDays=#{validDays},editTime=#{editTime},validTime=#{validTime}
+		where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="string">
+		delete from activities where uuid=#{uuid}
+	</delete>
+	
+	<!-- 根据uuid禁用活动（假删除） -->
+	<update id="forbid" parameterType="string">
+		update activities set status=0 where uuid=#{uuid}
+	</update>
+	
+	<!-- resultMap -->
+	<resultMap type="activities" id="activitiesResultMap">
+		<id property="id" column="id"/>
+		<association property="image" column="image_id" select="com.luoshengsha.onegreen.mapper.ImageMapper.find"/>
+	</resultMap>
+	
+	<!-- 根据id获取 -->
+	<select id="find" parameterType="string" resultMap="activitiesResultMap">
+		select * from activities where id=#{id}
+	</select>
+	
+	<!-- 根据uuid获取 -->
+	<select id="getByUuid" parameterType="string" resultMap="activitiesResultMap">
+		select * from activities where uuid=#{uuid}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultMap="activitiesResultMap">
+		select * from activities
+		<where>
+				platform_id=#{platform.id}
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量（与查询配合使用） -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from activities
+		<where>
+				platform_id=#{platform.id}
+		</where>
+	</select>
+	
+	<!-- 根据条件获取活动信息 -->
+	<select id="getByCond" parameterType="map" resultMap="activitiesResultMap">
+		select * from activities
+		<where>
+			status=1
+			<if test="platform != null">
+				and platform_id=#{platform.id}
+			</if>
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="max != null">
+			limit #{max}
+		</if>
+	</select>
+</mapper>
