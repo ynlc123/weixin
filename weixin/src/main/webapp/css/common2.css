@@ -1,0 +1,23 @@
+@charset"utf-8";
+body,button,input,select,textarea{font:12px/1.5 tahoma,arial,\5b8b\4f53;}
+.small_tipBox{position: relative; padding:10px; margin-bottom:8px;}
+.small_tipBox span{float:left; position:relative; top:2px; top:1px\9; _top:2px; left:0px; width:16px; height:16px; line-height:16px; background: url("/images/ico_tip.png") no-repeat;}
+.small_tipBox p{padding-left:20px; color:#444;line-height:18px; }
+.small_tipBox a.t_close{position:absolute; top:10px; right:10px; _right:25px; z-index:9; display:inline-block; width:9px; height:9px; overflow:hidden; background:url("/images/ico_tipclose.png") no-repeat;}
+.small_tipBox a.t_close:hover{background-position:0 -9px;}
+.unknownBg{background:#fef5e6; color:#444;}
+.unknownBg span{background-position:0 0;}
+.rightBg{background:#ebfde7; color:#569409;}
+.rightBg span{background-position:0 -36px;}
+.errorBg{background:#fff5f2; color:#d45904;}
+.errorBg span{background-position:0 -72px;}
+.helpBg{background:#f2fbff; color:#0378b3;}
+.helpBg span{background-position:0 -108px;}
+.warnBg{background:#fff5f1; color:#d45904;}
+.warnBg span{background-position:0 -144px;}
+.btn_smallgreen, .btn_smallgreenvisited, .btn_smallgreendisabled{display:inline-block; height:25px; color:#fff; background:url("/images/btn_all.png") no-repeat;text-shadow: 0 1px 0 rgba(0,0,0,.2);}
+.btn_smallgreen span, .btn_smallgreenvisited span, .btn_smallgreendisabled span{float:left; height:25px; line-height:25px; padding:0 10px 0 0; margin-left:10px; overflow:hidden; cursor:pointer; background:url("/images/btn_all.png") no-repeat;}
+.btn_smallgreen, .btn_smallgreenvisited{background-position:left -303px;}
+.btn_smallgreen span, .btn_smallgreenvisited span{background-position:right -303px;}
+.btn_smallgreen:hover, .btn_smallgreenvisited:hover{background-position:left -328px; text-decoration:none; color:#fff!important;}/*hover*/
+.btn_smallgreen:hover span, .btn_smallgreenvisited:hover span{background-position:right -328px;}
