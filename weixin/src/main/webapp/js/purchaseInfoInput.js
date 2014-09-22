@@ -7,7 +7,7 @@ $(function () {
     });
     
     // 上传采购图片
-    $("a.fileupload1").click(function () {
+    $("a.fileupload1").click(function () { 
         var uploadId = $(this).parents(".received-box").attr("data-index");
         $("#fileupload" + uploadId).uploadify('upload', '*');
         return false;

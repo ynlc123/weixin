@@ -38,7 +38,7 @@
     </div>
                     <a href="#" class="fileupload1  btn_smallgreen" type="submit" style="display:none;"><span>开始上传</span></a>
                 </td>
-            </tr>
+            </tr> 
             <tr class="received-box" data-index="0" id="received0">
                 <td class="txtrt">附件:</td>
                 <td>
