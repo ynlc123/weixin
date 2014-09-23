@@ -50,7 +50,7 @@
                     <a href="#" class="fileupload  btn_smallgreen" type="submit" style="display:none;"><span>开始上传</span></a>
                 </td>
             </tr>
-        </table>      
+        </table>
      </div>
     <input type="hidden" name="twoLevel" id="two-level" value="no">
    </form>
@@ -59,6 +59,5 @@
 <script type="text/javascript" src="http://uil.fanna.com.cn/jquery/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="http://i.fanna.com.cn/uploadify/3.1/jquery.uploadify-3.1.min.js"></script>
 <script type="text/javascript" src="/js/purchaseInfoInput.js?d=201311251206"></script>
-
 </body>
 </html>
