@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.AutoReplyTextMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="autoReplyText">
+		insert into autoReplyText(uuid,keywords,content,createTime,status,platform_id)
+					values(#{uuid},#{keywords},#{content},#{createTime},#{status},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="autoReplyText">
+		update autoReplyText set keywords=#{keywords},content=#{content},editTime=#{editTime} where uuid=#{uuid}
+	</update>
+	
+	<!-- 根据id查找 -->
+	<select id="find" parameterType="int" resultType="autoReplyText">
+		select * from autoReplyText where id=#{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="string">
+		delete from autoReplyText where uuid=#{uuid}
+	</delete>
+	
+	<!-- 根据uuid查找 -->
+	<select id="getByUuid" parameterType="string" resultType="autoReplyText">
+		select * from autoReplyText where uuid=#{uuid}
+	</select>
+	
+	<!-- 更改状态 -->
+	<update id="setStatus">
+		update autoReplyText set status=#{status} where uuid=#{autoReplyText.uuid}
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultType="autoReplyText">
+		select * from autoReplyText
+		<where>
+			platform_id = #{platform.id}
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量（与查询配合使用） -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from autoReplyText
+		<where>
+			platform_id=#{platform.id}
+		</where>
+	</select>
+</mapper>
