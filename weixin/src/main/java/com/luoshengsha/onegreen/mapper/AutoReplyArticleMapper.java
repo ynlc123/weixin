@@ -16,7 +16,7 @@ public interface AutoReplyArticleMapper extends BaseMapper<AutoReplyArticle> {
 	 * @param replyArticle 自动回复文章
 	 * @param article 文章
 	 */
-	public void saveAutoReplyArticle(AutoReplyArticle replyArticle, Article article);
+	public void saveAutoReplyArticle(@Param(value="replyArticle") AutoReplyArticle replyArticle, @Param(value="article") Article article);
 	
 	/**
 	 * 删除自动回复与文章的关系
@@ -36,7 +36,7 @@ public interface AutoReplyArticleMapper extends BaseMapper<AutoReplyArticle> {
 	 * @param autoReplyArticle
 	 * @param isValid
 	 */
-	public void setStatus(@Param(value="autoReplyArticle") AutoReplyArticle autoReplyArticle, boolean isValid);
+	public void setStatus(@Param(value="autoReplyArticle") AutoReplyArticle autoReplyArticle, @Param(value="isValid") boolean isValid);
 
 	/**
 	 * 根据uuid获取自动回复文章

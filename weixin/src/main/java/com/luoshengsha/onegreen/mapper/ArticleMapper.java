@@ -25,4 +25,10 @@ public interface ArticleMapper extends BaseMapper<Article> {
 	 * @param uuid
 	 */
 	public void forbid(String uuid);
+	
+	/**
+	 * 根据uuid删除文章
+	 * @param uuid
+	 */
+	public void delete(String uuid);
 }

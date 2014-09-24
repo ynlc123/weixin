@@ -26,4 +26,14 @@
 	<select id="getByOriginalId" parameterType="string" resultType="platform">
 		select * from platform where originalId=#{originalId}
 	</select>
+	
+	<!-- 根据公众号uuid获取公众号信息 -->
+	<select id="getByUuid" parameterType="string" resultType="platform">
+		select * from platform where uuid=#{uuid}
+	</select>
+	
+	<!-- 根据公众号appID获取公众号信息 -->
+	<select id="getByAppID" parameterType="string" resultType="platform">
+		select * from platform where appId=#{appId}
+	</select>
 </mapper>

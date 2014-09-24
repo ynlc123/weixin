@@ -85,32 +85,39 @@ public class CustomerController {
 	 * @return
 	 */
 	@RequestMapping("/update_password.htm")
-	public ModelAndView updatePassword(
+	@ResponseBody
+	public void updatePassword(
 			@RequestParam(value = "oldpassword") String oldpassword,
 			@RequestParam(value = "newpassword") String newpassword,
-			@RequestParam(value = "re_newpassword") String re_newpassword) {
+			@RequestParam(value = "re_newpassword") String re_newpassword,
+			HttpServletResponse response) {
 		//验证是否为空
 		if(StringUtils.isEmpty(oldpassword)) {
-			return new ModelAndView("center/edit-password","old_psw_msg","旧密码不能为空！");
+			WebUtil.print2JsonMsg(response, false, "旧密码不能为空！");
+			return;
 		} else if(StringUtils.isEmpty(newpassword)) {
-			return new ModelAndView("center/edit-password","new_psw_msg","新密码不能为空！");
+			WebUtil.print2JsonMsg(response, false, "新密码不能为空！");
+			return;
 		} else if(StringUtils.isEmpty(re_newpassword)) {
-			return new ModelAndView("center/edit-password","re_new_psw_msg","请再次确认新密码！");
+			WebUtil.print2JsonMsg(response, false, "请再次确认新密码！");
+			return;
 		} else if(!newpassword.equals(re_newpassword)) {
-			return new ModelAndView("center/edit-password","re_new_psw_msg","两次输入的密码不一致！");
+			WebUtil.print2JsonMsg(response, false, "两次输入的密码不一致！");
+			return;
 		}
 		
 		try {
 			//验证旧密码是否正确
 			if(!customerService.checkCustomer(WebUtil.getLoginCustomer().getName(), oldpassword)) {
-				return new ModelAndView("center/edit-password","old_psw_msg","旧密码输入有误，请重新输入！");
+				WebUtil.print2JsonMsg(response, false, "旧密码输入有误，请重新输入！");
+				return;
 			}
 			//更新密码
 			customerService.updatePwd(newpassword, WebUtil.getLoginCustomer());
-			return new ModelAndView("center/password-result","msg","您的密码修改成功！");
+			WebUtil.print2JsonMsg(response, true, "密码修改成功！");
 		} catch (Exception e) {
 			logger.error("修改密码失败！", e);
-			return new ModelAndView("center/password-result","msg","您的密码修改失败！");
+			WebUtil.print2JsonMsg(response, false, "密码修改失败！");
 		}
 	}
 }

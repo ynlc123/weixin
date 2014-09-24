@@ -26,13 +26,13 @@
                     <c:if test="${not empty loginCustomer }">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">我的米戈 <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" style="z-index: 2000;">
                         	<li><a href="/center/customer/edit.htm">我的资料</a></li>
                             <li><a href="/center/customer/edit_password.htm">修改密码</a></li>
                             <li class="divider"></li>
                             <li><a href="/center/platform.htm">公众号设置</a></li>
-                            <li><a href="/center/defReplyMsg.htm">设置默认自动回复内容</a></li>
-                            <li><a href="/center/autoReplyArticle/list.htm">管理自动回复</a></li>
+                            <li><a href="/center/defReplyMsg.htm">默认自动回复</a></li>
+                            <li><a href="/center/autoReplyText/list.htm">管理文本回复</a></li>
                             <li><a href="/center/autoReplyArticle/new.htm">新增自动回复</a></li>
                             <li class="divider"></li>
                             <li><a href="/center/article/addui.htm">新增文章</a></li>
@@ -55,7 +55,7 @@
                     <li><a href="/register.htm">注册</a></li>
                     </c:if>
                     <c:if test="${not empty loginCustomer }">
-                    <li><a href="#">${loginCustomer.name }</a></li>
+                    <li><a href="/center/customer/edit.htm">${loginCustomer.name }</a></li>
                     <li><a href="/logout.htm">退出</a></li>
                     </c:if>
                 </ul>

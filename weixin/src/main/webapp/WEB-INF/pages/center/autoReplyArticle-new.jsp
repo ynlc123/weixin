@@ -22,18 +22,18 @@
     <%@ include file="../navbar.jsp" %>
 	<%-- 自动回复内容 --%>
 	<div class="container content">
-	    <form class="form-horizontal" role="form" style="width: 800px;max-width:100%;height: 600px;margin-left: auto;margin-right: auto">
+	    <form action="" method="post" class="form-horizontal" role="form" style="width: 800px;max-width:100%;height: 600px;margin-left: auto;margin-right: auto">
 	        <legend><h6 style="font-weight: bold">添加自动图文回复信息</h6></legend>
 	        <div class="form-group">
-	            <label for="inputEmail3" class="col-sm-2 control-label">关键词</label>
+	            <label for="keywords" class="col-sm-2 control-label">关键词</label>
 	            <div class="col-sm-10">
-	                <input type="email" class="form-control input-sm" id="inputEmail3" placeholder="输入关键词">
+	                <input type="email" class="form-control input-sm" id="keywords" name="keywords" placeholder="输入关键词" maxlength="10">
 	            </div>
 	        </div>
 	        <div class="form-group">
 	            <label for="myEditor" class="col-sm-2 control-label">内容</label>
 	            <div class="col-sm-10">
-	                <script type="text/plain" id="myEditor" style="width:650px;height:240px;">
+	                <script type="text/plain" id="myEditor" name="content" style="width:650px;height:240px;">
                     <p>请输入文章内容</p>
                 </script>
 	            </div>

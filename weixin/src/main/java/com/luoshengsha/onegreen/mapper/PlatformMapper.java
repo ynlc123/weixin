@@ -34,4 +34,18 @@ public interface PlatformMapper {
 	 * @return
 	 */
 	public Platform getByOriginalId(String originalId);
+	
+	/**
+	 * 根据uuid获取公众平台
+	 * @param uuid
+	 * @return
+	 */
+	public Platform getByUuid(String uuid);
+
+	/**
+	 * 根据appid获取公众号
+	 * @param appId
+	 * @return
+	 */
+	public Platform getByAppID(String appId);
 }

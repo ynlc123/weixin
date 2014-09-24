@@ -28,4 +28,11 @@ public interface PlatformService {
 	 * @return
 	 */
 	public Platform getByOriginalId(String originalId);
+	
+	/**
+	 * 根据appid获取公众号信息
+	 * @param appId 公众号appid
+	 * @return
+	 */
+	public Platform getByAppID(String appId);
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.luoshengsha.onegreen.bean.Article;
+import com.luoshengsha.onegreen.bean.ArticleType;
 import com.luoshengsha.onegreen.bean.AutoReplyArticle;
 import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.service.ArticleService;
@@ -63,6 +64,7 @@ public class AutoReplyArticleController {
 			//条件
 			Map<String, Object> conditionMap = new HashMap<String, Object>();
 			conditionMap.put("platform", platform);
+			conditionMap.put("type", ArticleType.TEXT);
 			
 			//排序
 			LinkedHashMap<String,String> orderbyMap = new LinkedHashMap<String,String>();

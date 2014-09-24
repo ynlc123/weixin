@@ -15,8 +15,8 @@
 	</update>
 	
 	<!-- 删除 -->
-	<delete id="delete" parameterType="int">
-		delete from autoReplyArticle where id=#{id}
+	<delete id="delete" parameterType="string">
+		delete from autoReplyArticle where uuid=#{uuid}
 	</delete>
 	
 	<!-- resultMap -->
@@ -42,10 +42,15 @@
 	
 	<!-- 查询 -->
 	<select id="query" parameterType="map" resultMap="autoReplyArticleResultMap">
-		select * from autoReplyArticle
+		select a.* from autoReplyArticle a
+		left join autoreplyarticle_article ab on ab.autoReplyArticle_id=a.id
+		left join article b on ab.article_id=b.id
 		<where>
 			<if test="platform != null">
-				platform_id=#{platform.id}
+				a.platform_id=#{platform.id}
+			</if>
+			<if test="type != null">
+				and b.type=#{type}
 			</if>
 		</where>
 		<if test="orderBy != null">
@@ -56,10 +61,15 @@
 	
 	<!-- 获取数量（与查询配合使用） -->
 	<select id="getCount" parameterType="map" resultType="int">
-		select count(*) from autoReplyArticle
+		select count(*) from autoReplyArticle a
+		left join autoreplyarticle_article ab on ab.autoReplyArticle_id=a.id
+		left join article b on ab.article_id=b.id
 		<where>
 			<if test="platform != null">
-				platform_id=#{platform.id}
+				a.platform_id=#{platform.id}
+			</if>
+			<if test="type != null">
+				and b.type=#{type}
 			</if>
 		</where>
 	</select>
@@ -68,4 +78,14 @@
 	<update id="setStatus">
 		update autoReplyArticle set isValid=#{isValid} where id=#{autoReplyArticle.id}
 	</update>
+	
+	<!-- 保存自动回复与文章的关系 -->
+	<insert id="saveAutoReplyArticle">
+		insert into autoreplyarticle_article(autoReplyArticle_id,article_id) values(#{replyArticle.id},#{article.id})
+	</insert>
+	
+	<!-- 删除自动回复与文章的关系 -->
+	<delete id="delAutoReplyArticle" parameterType="autoReplyArticle">
+		delete from autoreplyarticle_article where autoReplyArticle_id=#{id}
+	</delete>
 </mapper>

@@ -1,11 +1,14 @@
 package com.luoshengsha.onegreen.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.luoshengsha.onegreen.bean.Article;
 import com.luoshengsha.onegreen.bean.AutoReplyArticle;
+import com.luoshengsha.onegreen.mapper.ArticleMapper;
 import com.luoshengsha.onegreen.mapper.AutoReplyArticleMapper;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
 import com.luoshengsha.onegreen.service.AutoReplyArticleService;
@@ -20,6 +23,8 @@ public class AutoReplyArticleServiceImpl extends DAOSupport<AutoReplyArticle>
 		implements AutoReplyArticleService {
 	@Resource
 	private AutoReplyArticleMapper mapper;
+	@Resource
+	private ArticleMapper articleMapper;
 	
 	@Override
 	protected BaseMapper<AutoReplyArticle> getMapper() {
@@ -74,6 +79,19 @@ public class AutoReplyArticleServiceImpl extends DAOSupport<AutoReplyArticle>
 
 	@Override
 	public void delete(String uuid) {
+		AutoReplyArticle autoReplyArticle = mapper.getByUuid(uuid);
+		List<Article> articleList = autoReplyArticle.getArticles();
+		if(articleList != null && !articleList.isEmpty()) {
+			for(Article article : articleList) {
+				//如果自动回复的文章，则删除
+				if(article.isAutoReply()) {
+					articleMapper.delete(article.getUuid());
+				}
+			}
+		}
+		//删除自动回复与文章的关系
+		mapper.delAutoReplyArticle(autoReplyArticle);
+		//删除自动回复
 		mapper.delete(uuid);
 	}
 	

@@ -5,11 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.luoshengsha.onegreen.bean.Image;
@@ -77,9 +79,11 @@ public class ImageController {
     /**
      * 删除图片
      */
-    @RequestMapping(value="/center/image/delete.htm")
-    public void delete() {
-    	
+    @RequestMapping(value="/image/delete.htm")
+    @ResponseBody
+    public void delete(@RequestParam("uuid") String uuid, HttpServletResponse response) {
+    	imageService.delete(uuid);
+    	WebUtil.print2JsonMsg(response, true, "删除图片成功！");
     }
     
     @RequestMapping(value="/center/image/uploadUI.htm")

@@ -11,7 +11,7 @@ public class ImageUtil {
 	/** 图片服务器地址 **/
 	public static final String PICTURE_URL = "http://picture.fanna.com.cn/";
 	/** 图片存储路径 **/
-	public static final String PIC_PERSIST_PATH = LOCAL_FILE_SEPARATOR+"fanna"+LOCAL_FILE_SEPARATOR+"fanna_picture";
+	public static final String PIC_PERSIST_PATH = "f:" + LOCAL_FILE_SEPARATOR+"tmpFiles"+LOCAL_FILE_SEPARATOR+"migo_picture";
 	/** 附件服务器地址 **/
 	public static final String ATTACHMENT_URL = "http://attachment.fanna.com.cn/";
 	/** 附件存储路径 **/

@@ -21,13 +21,23 @@
         <span class="explains">（写下您的采购需求，快速获得多个供应商报价）</span>
     </div>
     <form action="/center/provide/purchaseInfo/save.htm" method="post" id="releaseMessage-form">
+    <div>
+    <input type="file" name="file" id="fileupload1" />
+                    <div id="fileQueue1"></div>
+                    <div class="small_tipBox warnBg" style="line-height:18px; margin-top:5px;">
+                        <!-- <span></span> -->
+    <p>上传采购产品的相关图片以便供应商进行报价，最多可上传<b class="preco">5</b>个附件，单个大小不超过<b class="preco">3M</b>
+    <br/>格式为<b class="preco">jpg</b>或<b class="preco">jpeg</b>或<b class="preco">png</b>或<b class="preco">bmp</b>或<b class="preco">gif</b>。</p>
+    </div>
+                    <a href="#" class="fileupload1  btn_smallgreen" type="submit" style="display:none;"><span>开始上传</span></a>
+    </div>
     <div class="mainBox">
         <table class="tabel_list purchase_table">
             <tr class="received-box" data-index="1" id="received1">
                 <td class="txtrt">图片:</td>
                 <td>
                     <input type="hidden" value="" name="pictures" id="picIds"/>
-	                <input type="file" name="fileupload" id="fileupload1" />
+	                <input type="file" name="file" id="fileupload1" />
                     <div id="fileQueue1"></div>
                     <div class="small_tipBox warnBg" style="line-height:18px; margin-top:5px;">
                         <!-- <span></span> -->
@@ -55,9 +65,23 @@
     <input type="hidden" name="twoLevel" id="two-level" value="no">
    </form>
     <input type="hidden" id="loginsession" value="DB5B190F7347086F7179021D2423EDEB.worker1"/>
+    
+   <form method="POST" action="/uploadFile.htm" enctype="multipart/form-data">
+       File to upload: <input type="file" name="file"><br /> 
+       Name: <input type="text" name="name"><br /> <br /> 
+       <input type="submit" value="Upload"> Press here to upload the file!
+   </form>
+   
+   <form method="POST" action="/uploadMultipleFile.htm" enctype="multipart/form-data">
+        File1 to upload: <input type="file" name="file"><br /> 
+        Name1: <input type="text" name="name"><br /> <br /> 
+        File2 to upload: <input type="file" name="file"><br /> 
+        Name2: <input type="text" name="name"><br /> <br />
+        <input type="submit" value="Upload"> Press here to upload the file!
+    </form>
 </div>
-<script type="text/javascript" src="http://uil.fanna.com.cn/jquery/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="http://i.fanna.com.cn/uploadify/3.1/jquery.uploadify-3.1.min.js"></script>
+<script type="text/javascript" src="/plugin/jquery.1.11.1-min.js"></script>
+<script type="text/javascript" src="/uploadify/3.1/jquery.uploadify-3.1.min.js"></script>
 <script type="text/javascript" src="/js/purchaseInfoInput.js?d=201311251206"></script>
 </body>
 </html>

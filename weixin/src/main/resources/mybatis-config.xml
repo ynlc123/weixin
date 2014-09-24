@@ -20,5 +20,6 @@
 		<typeAlias type="com.luoshengsha.onegreen.bean.Activities" alias="activities"/>
 		<typeAlias type="com.luoshengsha.onegreen.bean.Article" alias="article"/>
 		<typeAlias type="com.luoshengsha.onegreen.bean.AutoReplyArticle" alias="autoReplyArticle"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.AutoReplyText" alias="autoReplyText"/>
 	</typeAliases>
 </configuration>

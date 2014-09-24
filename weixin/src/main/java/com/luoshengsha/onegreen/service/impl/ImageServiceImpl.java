@@ -37,10 +37,13 @@ public class ImageServiceImpl extends DAOSupport<Image> implements ImageService 
 	
 	@Override
 	public void delete(Serializable id) {
-		//删除物理图片
-		delPhysicalPic(id);
-		//删除数据库中的图片信息
-		mapper.delete(id);
+		Image image = find(id);
+		if(image != null) {
+			//删除物理图片
+			delPhysicalPic(image);
+			//删除数据库中的图片信息
+			mapper.delete(id);
+		}
 	}
 
 	/**
@@ -48,12 +51,14 @@ public class ImageServiceImpl extends DAOSupport<Image> implements ImageService 
 	 * @param id 
 	 * @author luoshengsha
 	 */
-	private void delPhysicalPic(Serializable id) {
+	private void delPhysicalPic(Image image) {
 		//从图片服务器中删除图片
-		Image image = find(id);
 		if(!StringUtils.isEmpty(image.getPath())){
+			File pic = new File("D:/server/apache-tomcat-7.0.54_1/webapps/"+image.getPath());
+			if(pic.exists()) 
+				pic.delete();
 			/***** 普通图片（包括64*64,100*100,150*150,220*220,310*310,原图） ****/
-			File pic_64 = new File(ImageUtil.PIC_PERSIST_PATH+"/"+image.getPath().replace("_min", "64"));
+			/*File pic_64 = new File(ImageUtil.PIC_PERSIST_PATH+"/"+image.getPath().replace("_min", "64"));
 			if(pic_64.exists()) {//删除64*64图
 				pic_64.delete();
 			}
@@ -76,7 +81,7 @@ public class ImageServiceImpl extends DAOSupport<Image> implements ImageService 
 			File pic = new File(ImageUtil.PIC_PERSIST_PATH+"/"+image.getPath().replace("_min", ""));
 			if(pic.exists()) {//删除原图
 				pic.delete();
-			}
+			}*/
 		}
 	}
 }

@@ -8,7 +8,6 @@ import com.luoshengsha.onegreen.bean.Customer;
 import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.mapper.PlatformMapper;
 import com.luoshengsha.onegreen.service.PlatformService;
-import com.luoshengsha.onegreen.utils.IdGenerator;
 
 /**
  * 公众号接口实现
@@ -22,9 +21,7 @@ public class PlatformServiceImpl implements PlatformService {
 	
 	@Override
 	public void edit(Platform platform) {
-		if(getByOriginalId(platform.getOriginalId())==null) {//第一次添加公众号信息
-			//生成平台的uuid
-			platform.setUuid(IdGenerator.generateId());
+		if(mapper.getByUuid(platform.getUuid())==null) {//第一次添加公众号信息
 			//保存
 			mapper.save(platform);
 		} else {
@@ -41,6 +38,11 @@ public class PlatformServiceImpl implements PlatformService {
 	@Override
 	public Platform getByOriginalId(String originalId) {
 		return mapper.getByOriginalId(originalId);
+	}
+
+	@Override
+	public Platform getByAppID(String appId) {
+		return mapper.getByAppID(appId);
 	}
 
 }

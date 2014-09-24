@@ -10,6 +10,8 @@
     <link href="/plugin/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/plugin/flat-ui/css/flat-ui.css" rel="stylesheet">
     <link href="/css/common.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/css/common2.css" />
+    <link type="text/css" rel="stylesheet" href="/uploadify/3.1/uploadify.css">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -39,8 +41,11 @@
 	        </div>
 	        <div class="form-group">
 	            <label for="exampleInputFile" class="col-sm-2 control-label">图片</label>
-	            <div class="col-sm-10">
-	                <input type="file" id="exampleInputFile">
+	            <div class="col-sm-10" style="padding-top: 7px;">
+	                <input type="file" name="file" id="fileupload"/>
+	                <span class="help-block"></span>
+                    <div id="fileQueue"></div>
+                    <a href="#" class="fileupload  btn_smallgreen" type="submit" style="display:none;margin-top:10px;"><span>开始上传</span></a>
 	            </div>
 	        </div>
 	        <div class="form-group">
@@ -63,12 +68,16 @@
 	            </div>
 	        </div>
 	    </form>
+	    <input type="hidden" id="loginsession" value="<%=session.getId()%>"/>
 	</div>
 	
 	<!--footer-->
 	<%@ include file="../footer.jsp" %>
 	<script src="/plugin/jquery.1.11.1-min.js"></script>
 	<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="/uploadify/3.1/jquery.uploadify-3.1.min.js"></script>
+	<script type="text/javascript" src="/js/upload-image.js"></script>
 	
 	<!--百度编辑器-->
     <link href="/plugin/umeditor1_2_2/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
