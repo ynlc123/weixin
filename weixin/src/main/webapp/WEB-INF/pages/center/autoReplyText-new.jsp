@@ -35,7 +35,7 @@
 	            <label for="myEditor" class="col-sm-2 control-label">内容</label>
 	            <div class="col-sm-10">
 		        	<textarea rows="8" style="width: 100%;" name="content" id="content" maxlength="500"></textarea>
-                <span class="help-block" id="content_tips"></span>
+                	<span class="help-block" id="content_tips"></span>
 	            </div>
 	        </div>
 	        <div class="form-group text-center">
