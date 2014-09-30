@@ -4,10 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.luoshengsha.onegreen.bean.AutoReplyText;
-import com.luoshengsha.onegreen.mapper.AutoReplyTextMapper;
+import com.luoshengsha.onegreen.bean.ReplyText;
+import com.luoshengsha.onegreen.mapper.ReplyTextMapper;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
-import com.luoshengsha.onegreen.service.AutoReplyTextService;
+import com.luoshengsha.onegreen.service.ReplyTextService;
 
 /**
  * 自动文本回复接口实现
@@ -15,33 +15,33 @@ import com.luoshengsha.onegreen.service.AutoReplyTextService;
  * @date 2014年9月24日 下午4:05:31
  */
 @Service
-public class AutoReplyTextServiceImpl extends DAOSupport<AutoReplyText>
-		implements AutoReplyTextService {
+public class ReplyTextServiceImpl extends DAOSupport<ReplyText>
+		implements ReplyTextService {
 	@Resource
-	private AutoReplyTextMapper mapper;
+	private ReplyTextMapper mapper;
 
 	@Override
-	protected BaseMapper<AutoReplyText> getMapper() {
+	protected BaseMapper<ReplyText> getMapper() {
 		return mapper;
 	}
 	
 	@Override
-	public AutoReplyText getByUuid(String uuid) {
+	public ReplyText getByUuid(String uuid) {
 		return mapper.getByUuid(uuid);
 	}
 
 	@Override
-	public void update(AutoReplyText autoReplyText) {
+	public void update(ReplyText autoReplyText) {
 		mapper.update(autoReplyText);
 	}
 
 	@Override
-	public void forbid(AutoReplyText autoReplyText) {
+	public void forbid(ReplyText autoReplyText) {
 		mapper.setStatus(autoReplyText, 0);
 	}
 
 	@Override
-	public void enable(AutoReplyText autoReplyText) {
+	public void enable(ReplyText autoReplyText) {
 		mapper.setStatus(autoReplyText, 1);
 	}
 

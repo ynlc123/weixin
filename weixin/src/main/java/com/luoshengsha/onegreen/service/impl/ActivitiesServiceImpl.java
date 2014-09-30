@@ -47,4 +47,9 @@ public class ActivitiesServiceImpl extends DAOSupport<Activities> implements
 		mapper.forbid(uuid);
 	}
 
+	@Override
+	public void enable(Serializable uuid) {
+		mapper.enable(uuid);
+	}
+
 }

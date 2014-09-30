@@ -95,18 +95,3 @@ function submit_form() {
 		return false;
 	}
 }
-
-/**
- * 提示信息
- * @param msg
- */
-function tip(msg) {
-	var d = dialog({
-		title: '提示信息',
-	    content: msg
-	});
-	d.show();
-	setTimeout(function () {
-	    d.close().remove();
-	}, 2000);
-}

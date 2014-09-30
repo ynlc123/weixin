@@ -30,8 +30,14 @@ public interface ActivitiesService extends BaseDAO<Activities> {
 	public void delete(String uuid);
 	
 	/**
-	 * 根据uuid禁用活动（假删除）
+	 * 根据uuid禁用活动
 	 * @param uuid
 	 */
 	public void forbid(Serializable uuid);
+	
+	/**
+	 * 根据uuid启用活动
+	 * @param uuid
+	 */
+	public void enable(Serializable uuid);
 }

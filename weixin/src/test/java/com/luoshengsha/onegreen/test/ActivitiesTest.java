@@ -54,9 +54,7 @@ public class ActivitiesTest {
 			activities.setContent("中秋促销活动了！！！！");
 			//activities.setImage(imageService.find(3));
 			activities.setCreateTime(new Date());
-			activities.setValidDays(10);
 			activities.setEditTime(new Date());
-			activities.setValidTime(new Date(System.currentTimeMillis()+10l*24*60*60*1000));
 			activities.setPlatform(platformService.getByOriginalId("gh_3e7314baeab1"));
 			
 			activitiesService.save(activities);
@@ -74,9 +72,7 @@ public class ActivitiesTest {
 		activities.setContent("中秋促销活动了！！！！");
 		activities.setImage(imageService.find(3));
 		activities.setCreateTime(new Date());
-		activities.setValidDays(20);
 		activities.setEditTime(new Date());
-		activities.setValidTime(new Date(System.currentTimeMillis()+20l*24*60*60*1000));
 		activities.setPlatform(platformService.getByOriginalId("gh_3e7314baeab1"));
 		
 		activitiesService.update(activities);

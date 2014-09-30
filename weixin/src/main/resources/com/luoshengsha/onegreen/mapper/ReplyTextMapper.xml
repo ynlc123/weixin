@@ -2,41 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.luoshengsha.onegreen.mapper.AutoReplyTextMapper">
+<mapper namespace="com.luoshengsha.onegreen.mapper.ReplyTextMapper">
 	<!-- 保存 -->
-	<insert id="save" parameterType="autoReplyText">
-		insert into autoReplyText(uuid,keywords,content,createTime,status,platform_id)
+	<insert id="save" parameterType="replyText">
+		insert into replyText(uuid,keywords,content,createTime,status,platform_id)
 					values(#{uuid},#{keywords},#{content},#{createTime},#{status},#{platform.id})
 	</insert>
 	
 	<!-- 更新 -->
-	<update id="update" parameterType="autoReplyText">
-		update autoReplyText set keywords=#{keywords},content=#{content},editTime=#{editTime} where uuid=#{uuid}
+	<update id="update" parameterType="replyText">
+		update replyText set keywords=#{keywords},content=#{content},editTime=#{editTime} where uuid=#{uuid}
 	</update>
 	
 	<!-- 根据id查找 -->
-	<select id="find" parameterType="int" resultType="autoReplyText">
-		select * from autoReplyText where id=#{id}
+	<select id="find" parameterType="int" resultType="replyText">
+		select * from replyText where id=#{id}
 	</select>
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="string">
-		delete from autoReplyText where uuid=#{uuid}
+		delete from replyText where uuid=#{uuid}
 	</delete>
 	
 	<!-- 根据uuid查找 -->
-	<select id="getByUuid" parameterType="string" resultType="autoReplyText">
-		select * from autoReplyText where uuid=#{uuid}
+	<select id="getByUuid" parameterType="string" resultType="replyText">
+		select * from replyText where uuid=#{uuid}
 	</select>
 	
 	<!-- 更改状态 -->
 	<update id="setStatus">
-		update autoReplyText set status=#{status} where uuid=#{autoReplyText.uuid}
+		update replyText set status=#{status} where uuid=#{replyText.uuid}
 	</update>
 	
 	<!-- 查询 -->
-	<select id="query" parameterType="map" resultType="autoReplyText">
-		select * from autoReplyText
+	<select id="query" parameterType="map" resultType="replyText">
+		select * from replyText
 		<where>
 			platform_id = #{platform.id}
 		</where>
@@ -48,7 +48,7 @@
 	
 	<!-- 获取数量（与查询配合使用） -->
 	<select id="getCount" parameterType="map" resultType="int">
-		select count(*) from autoReplyText
+		select count(*) from replyText
 		<where>
 			platform_id=#{platform.id}
 		</where>

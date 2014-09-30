@@ -22,46 +22,48 @@
     <%@ include file="../navbar.jsp" %>
 	<!--活动列表-->
 	<div class="container content">
-	    <h6 style="font-weight: bold">自动回复列表</h6>
+	    <h6 style="font-weight: bold; display:inline;">图文回复列表</h6>
+	    <a href="/center/autoReplyArticle/new.htm" class="btn btn-primary btn-sm pull-right" style="margin-left: 10px;">发布单图文</a>
+	    <a href="/center/autoReplyArticle/new.htm" class="btn btn-primary btn-sm pull-right">发布多图文</a>
 	    <table class="table table-hover table-striped">
 	        <thead>
 	        <tr>
 	            <th>序号</th>
 	            <th>关键词</th>
 	            <th>创建时间</th>
+	            <th>类型</th>
 	            <th>状态</th>
 	            <th>操作</th>
 	        </tr>
 	        </thead>
 	        <tbody>
+	        <c:forEach items="${pageView.records }" var="autoReplyArticle" varStatus="status">
 	        <tr>
-	            <td>1</td>
-	            <td><a href="#">中秋特惠</a></td>
-	            <td>2014-9-13</td>
-	            <td>正常</td>
-	            <td><a href="#">关闭</a></td>
+	            <td>${status.index+1 }</td>
+	            <td><a href="#" title="${autoReplyArticle.keywords }">${autoReplyArticle.keywords }</a></td>
+	            <td><fmt:formatDate value="${autoReplyArticle.createTime}" pattern="yyyy-MM-dd" /></td>
+	            <td>${autoReplyArticle.type.name }</td>
+	            <td>
+	            	<c:if test="${autoReplyArticle.status==1 }">正常</c:if>
+	            	<c:if test="${autoReplyArticle.status==0 }"><i style="font-style:normal;color:#ff0000;">已禁用</i></c:if>
+	            </td>
+	            <td data-id="${autoReplyArticle.uuid }">
+	            	<c:if test="${autoReplyArticle.status==1 }"><a href="javascript:;" class="btn btn-warning btn-xs forbid">禁用</a></c:if>
+		            <c:if test="${autoReplyArticle.status==0 }"><a href="javascript:;" class="btn btn-success btn-xs enable">启用</a></c:if>
+		            <a href="/center/activities/edit.htm?uuid=${autoReplyArticle.uuid }" target="_blank" class="btn btn-info btn-xs">编辑</a>
+		            <a href="javascript:;" class="btn btn-danger btn-xs delete">删除</a>
+	            </td>
 	        </tr>
+	        </c:forEach>
+	        <c:if test="${empty pageView.records }">
 	        <tr>
-	            <td>2</td>
-	            <td><a href="#">国庆优惠活动</a></td>
-	            <td>2014-10-01</td>
-	            <td>已关闭</td>
-	            <td><a href="#">开启</a></td>
+	        	<td colspan="7">
+	        		<div class="alert alert-warning text-center" style="height: 100px;line-height: 100px;" role="alert">
+	        			您还没有图文回复文章哦！<a href="/center/autoReplyArticle/new.htm" class="btn btn-primary btn-sm">发布活动</a>
+	        		</div>
+	        	</td>
 	        </tr>
-	        <tr>
-	            <td>3</td>
-	            <td><a href="#">中秋特惠</a></td>
-	            <td>2014-9-13</td>
-	            <td>正常</td>
-	            <td><a href="#">关闭</a></td>
-	        </tr>
-	        <tr>
-	            <td>4</td>
-	            <td><a href="#">国庆优惠活动</a></td>
-	            <td>2014-10-01</td>
-	            <td>已关闭</td>
-	            <td><a href="#">开启</a></td>
-	        </tr>
+	        </c:if>
 	        </tbody>
 	    </table>
 	</div>

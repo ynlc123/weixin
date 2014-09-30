@@ -1,28 +1,29 @@
 package com.luoshengsha.onegreen.bean;
 
 import java.util.Date;
-import java.util.List;
 
 /**
- * 自动回复文章
+ * 单条图文回复
  * @author luoshengsha
  * @date 2014年9月3日 下午3:26:38
  */
-public class AutoReplyArticle {
+public class ReplySingleImageText {
 	/**id**/
 	private int id;
 	/**uuid**/
 	private String uuid;
 	/**关键词**/
 	private String keywords;
-	/**回复文章列表**/
-	private List<Article> articles;
+	/**图片**/
+	private Image image;
+	/**内容**/
+	private String content;
 	/**创建时间**/
 	private Date createTime;
 	/**编辑时间**/
 	private Date editTime;
-	/**是否有效，只有在有效状态才回复**/
-	private boolean isValid;
+	/**是否有效，只有在有效状态才回复 1: 有效  0：无效**/
+	private int status;
 	/**公众号**/
 	private Platform platform;
 	
@@ -44,11 +45,17 @@ public class AutoReplyArticle {
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
 	}
-	public List<Article> getArticles() {
-		return articles;
+	public Image getImage() {
+		return image;
 	}
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -62,11 +69,11 @@ public class AutoReplyArticle {
 	public void setEditTime(Date editTime) {
 		this.editTime = editTime;
 	}
-	public boolean isValid() {
-		return isValid;
+	public int getStatus() {
+		return status;
 	}
-	public void setValid(boolean isValid) {
-		this.isValid = isValid;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public Platform getPlatform() {
 		return platform;

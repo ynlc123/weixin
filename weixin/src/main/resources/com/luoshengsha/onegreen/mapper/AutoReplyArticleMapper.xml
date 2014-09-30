@@ -5,13 +5,13 @@
 <mapper namespace="com.luoshengsha.onegreen.mapper.AutoReplyArticleMapper">
 	<!-- 保存 -->
 	<insert id="save" parameterType="autoReplyArticle" keyProperty="id" useGeneratedKeys="true">
-		insert into autoReplyArticle(uuid,keywords,createTime,editTime,isValid,platform_id)
-		values(#{uuid},#{keywords},#{createTime},#{editTime},#{isValid},#{platform.id})
+		insert into autoReplyArticle(uuid,keywords,createTime,editTime,type,status,platform_id)
+		values(#{uuid},#{keywords},#{createTime},#{editTime},#{type},#{status},#{platform.id})
 	</insert>
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="autoReplyArticle">
-		update autoReplyArticle set keywords=#{keywords},editTime=#{editTime},isValid=#{isValid} where id=#{id}
+		update autoReplyArticle set keywords=#{keywords},editTime=#{editTime},type=#{type},status=#{status} where id=#{id}
 	</update>
 	
 	<!-- 删除 -->
@@ -46,12 +46,7 @@
 		left join autoreplyarticle_article ab on ab.autoReplyArticle_id=a.id
 		left join article b on ab.article_id=b.id
 		<where>
-			<if test="platform != null">
-				a.platform_id=#{platform.id}
-			</if>
-			<if test="type != null">
-				and b.type=#{type}
-			</if>
+			a.platform_id=#{platform.id}
 		</where>
 		<if test="orderBy != null">
 			order by ${orderBy}
@@ -65,12 +60,7 @@
 		left join autoreplyarticle_article ab on ab.autoReplyArticle_id=a.id
 		left join article b on ab.article_id=b.id
 		<where>
-			<if test="platform != null">
-				a.platform_id=#{platform.id}
-			</if>
-			<if test="type != null">
-				and b.type=#{type}
-			</if>
+			a.platform_id=#{platform.id}
 		</where>
 	</select>
 	

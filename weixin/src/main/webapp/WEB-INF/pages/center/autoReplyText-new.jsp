@@ -50,6 +50,5 @@
 	<script src="/plugin/jquery.1.11.1-min.js"></script>
 	<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/js/auto_reply_text_operate.js"></script>
-	
 </body>
 </html>

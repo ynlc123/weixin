@@ -212,10 +212,11 @@ public class Uploader {
 	 * @return
 	 */
 	private String getPhysicalPath(String path) {
-		String servletPath = this.request.getServletPath();
+		/*String servletPath = this.request.getServletPath();
 		String realPath = this.request.getSession().getServletContext()
 				.getRealPath(servletPath);
-		return new File(realPath).getParent() +"/" +path;
+		return new File(realPath).getParent() +"/" +path;*/
+		return new File("D:/server/apache-tomcat-7.0.54_1/webapps/images");
 	}
 
 	public void setSavePath(String savePath) {

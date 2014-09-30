@@ -23,43 +23,44 @@
     <%-- 导航栏 --%>
     <%@ include file="../navbar.jsp" %>
 	<div class="container content">
-	    <form action="/center/activities/save.htm" method="post" class="form-horizontal" role="form" style="width: 800px;max-width:100%;height: 600px;margin-left: auto;margin-right: auto">
+	    <form action="/center/activities/save.htm" method="post" class="form-horizontal" role="form" style="width: 800px;max-width:100%;margin-left: auto;margin-right: auto">
 	        <legend><h6 style="font-weight: bold">添加活动</h6></legend>
 	        <div class="form-group">
 	            <label for="title" class="col-sm-2 control-label">标题</label>
 	            <div class="col-sm-10">
-	                <input type="text" class="form-control input-sm" id="title" name="title" placeholder="输入活动标题">
+	                <input type="text" class="form-control input-sm" id="title" name="title" placeholder="输入活动标题" maxlength="30">
+	                <span class="help-block"></span>
 	            </div>
 	        </div>
 	        <div class="form-group">
 	            <label for="myEditor" class="col-sm-2 control-label">内容</label>
 	            <div class="col-sm-10">
 	                <script type="text/plain" id="myEditor" name="content" style="width:650px;height:240px;">
-                    <p>请输入活动内容</p>
-                </script>
+                      <p></p>
+                    </script>
+                    <span class="help-block" id="content-tips"></span>
 	            </div>
 	        </div>
 	        <div class="form-group">
 	            <label for="exampleInputFile" class="col-sm-2 control-label">图片</label>
 	            <div class="col-sm-10" style="padding-top: 7px;">
 	                <input type="file" name="file" id="fileupload"/>
-	                <span class="help-block"></span>
+	                <div class="alert alert-danger" role="alert" style="font-size: 13px;margin-top: 5px;">支持格式:jpg/gif/jpeg/png/bmp</div>
                     <div id="fileQueue"></div>
                     <a href="#" class="fileupload  btn_smallgreen" type="submit" style="display:none;margin-top:10px;"><span>开始上传</span></a>
+	            	<span class="help-block" id="image-tips"></span>
 	            </div>
 	        </div>
 	        <div class="form-group">
-	            <label class="col-sm-2 control-label">有效时长</label>
+	            <label class="col-sm-2 control-label">活动时间</label>
 	            <div class="col-sm-10">
-	                <label class="radio" for="radio4a">
-	                    <input type="radio" name="validDays" data-toggle="radio" value="7" id="radio4a" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>7天
-	                </label>
-	                <label class="radio" for="radio4b">
-	                    <input type="radio" name="validDays" data-toggle="radio" value="15" id="radio4b" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>半个月
-	                </label>
-	                <label class="radio" for="radio4c">
-	                    <input type="radio" name="validDays" data-toggle="radio" value="30" id="radio4c" class="custom-radio"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span> 一个月
-	                </label>
+	            	<input type="text" class="form-control" id="startTime" name="startTime" style="width: 150px;display:inline;" onClick="WdatePicker()" placeholder="起始时间" >
+	            	 至  
+	            	<input type="text" class="form-control" id="endTime" name="endTime" style="width: 150px;display:inline;" onClick="WdatePicker()" placeholder="结束时间" >
+	            	<div style="margin-top:10px;">
+	            		<span class="help-block" style="width: 200px;display:inline;" id="startTime-tips"></span>
+	            		<span class="help-block" style="margin-left:50px; width: 200px;display:inline;" id="endTime-tips"></span>
+	            	</div>
 	            </div>
 	        </div>
 	        <div class="form-group text-center">
@@ -68,7 +69,7 @@
 	            </div>
 	        </div>
 	    </form>
-	    <input type="hidden" id="loginsession" value="<%=session.getId()%>"/>
+	    <input type="hidden" id="jsessionid" value="<%=session.getId()%>"/>
 	</div>
 	
 	<!--footer-->
@@ -79,15 +80,15 @@
 	<script type="text/javascript" src="/uploadify/3.1/jquery.uploadify-3.1.min.js"></script>
 	<script type="text/javascript" src="/js/upload-image.js"></script>
 	
+	<script type="text/javascript" src="http://uil.fanna.com.cn/my97datepicker/4.8b2/WdatePicker.js"></script>
+	
 	<!--百度编辑器-->
     <link href="/plugin/umeditor1_2_2/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" charset="utf-8" src="/plugin/umeditor1_2_2/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="/plugin/umeditor1_2_2/umeditor.min.js"></script>
     <script type="text/javascript" src="/plugin/umeditor1_2_2/lang/zh-cn/zh-cn.js"></script>
     
-	<script type="text/javascript">
-	    var um = UM.getEditor('myEditor');
-	</script>
+	<script type="text/javascript" src="/js/activities_operate.js"></script>
 </body>
 </html>
 </body>

@@ -12,7 +12,6 @@ import com.luoshengsha.onegreen.bean.Image;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
 import com.luoshengsha.onegreen.mapper.ImageMapper;
 import com.luoshengsha.onegreen.service.ImageService;
-import com.luoshengsha.onegreen.utils.ImageUtil;
 
 /**
  * 图片接口实现
@@ -35,6 +34,11 @@ public class ImageServiceImpl extends DAOSupport<Image> implements ImageService 
 		mapper.update(image);
 	}
 	
+	@Override
+	public Image getByUuid(String uuid) {
+		return mapper.getByUuid(uuid);
+	}
+
 	@Override
 	public void delete(Serializable id) {
 		Image image = find(id);

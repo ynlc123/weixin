@@ -20,7 +20,12 @@
 	
 	<!-- 根据id查找图片 -->
 	<select id="find" parameterType="int" resultType="image">
-		select * from image where id=#{id} or uuid=#{uuid}
+		select * from image where id=#{id}
+	</select>
+	
+	<!-- 根据uuid查找图片 -->
+	<select id="getByUuid" parameterType="string" resultType="image">
+		select * from image where uuid=#{uuid}
 	</select>
 	
 	<!-- 查询 -->

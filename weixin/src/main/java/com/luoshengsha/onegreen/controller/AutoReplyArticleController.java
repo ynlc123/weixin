@@ -18,11 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.luoshengsha.onegreen.bean.Article;
-import com.luoshengsha.onegreen.bean.ArticleType;
-import com.luoshengsha.onegreen.bean.AutoReplyArticle;
+import com.luoshengsha.onegreen.bean.ReplySingleImageText;
 import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.service.ArticleService;
-import com.luoshengsha.onegreen.service.AutoReplyArticleService;
+import com.luoshengsha.onegreen.service.ReplySingleImageTextService;
 import com.luoshengsha.onegreen.service.PlatformService;
 import com.luoshengsha.onegreen.utils.WebUtil;
 import com.luoshengsha.onegreen.utils.page.PageView;
@@ -42,12 +41,12 @@ public class AutoReplyArticleController {
     @Resource
     private PlatformService platformService;
     @Resource
-    private AutoReplyArticleService autoReplyArticleService;
+    private ReplySingleImageTextService autoReplyArticleService;
     @Resource
     private ArticleService articleService;
 	
     /**
-     * 自动回复文章列表
+     * 图文回复列表
      * @return
      */
     @RequestMapping(value="/list.htm")
@@ -59,18 +58,17 @@ public class AutoReplyArticleController {
     			return new ModelAndView("redirect:/center/platform.htm");
     		}
 			//页码，每页显示10个自动回复文章
-			PageView<AutoReplyArticle> pageView = new PageView<AutoReplyArticle>(pageNo, 10);
+			PageView<ReplySingleImageText> pageView = new PageView<ReplySingleImageText>(pageNo, 10);
 			
 			//条件
 			Map<String, Object> conditionMap = new HashMap<String, Object>();
 			conditionMap.put("platform", platform);
-			conditionMap.put("type", ArticleType.TEXT);
 			
 			//排序
 			LinkedHashMap<String,String> orderbyMap = new LinkedHashMap<String,String>();
 			orderbyMap.put("editTime", "desc");
 			
-			QueryResult<AutoReplyArticle> qr = autoReplyArticleService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
+			QueryResult<ReplySingleImageText> qr = autoReplyArticleService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
 			pageView.setQueryResult(qr);
 			
 			return new ModelAndView("center/autoReplyArticle-list", "pageView", pageView);
@@ -84,7 +82,7 @@ public class AutoReplyArticleController {
      * 添加自动回复文章界面
      * @return
      */
-    @RequestMapping(value="/new.htm")
+    @RequestMapping(value="/single-new.htm")
     public String addui() {
     	Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
 		//当客户尚未填写公众号信息时，跳转到公众号编辑页面。
@@ -105,14 +103,14 @@ public class AutoReplyArticleController {
     		@RequestParam(value="articleId") String articleIds) {
     	Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
     	
-    	AutoReplyArticle autoReplyArticle = new AutoReplyArticle();
+    	ReplySingleImageText autoReplyArticle = new ReplySingleImageText();
     	autoReplyArticle.setKeywords(keywords);
     	
     	Date date = new Date();
     	autoReplyArticle.setCreateTime(date);
     	autoReplyArticle.setEditTime(date);
     	autoReplyArticle.setPlatform(platform);
-    	autoReplyArticle.setValid(true);
+    	autoReplyArticle.setStatus(1);
     	
     	//文章列表
     	List<Article> articleList = new ArrayList<Article>();
@@ -137,7 +135,7 @@ public class AutoReplyArticleController {
     @RequestMapping(value="/edit.htm")
     public ModelAndView edit(String uuid) {
     	try {
-			AutoReplyArticle autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
+			ReplySingleImageText autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
 			if(autoReplyArticle == null) {
 				return new ModelAndView("404");
 			}
@@ -158,7 +156,7 @@ public class AutoReplyArticleController {
     public void update(@RequestParam(value="uuid") String uuid,
     		@RequestParam(value="keywords") String keywords, 
     		@RequestParam(value="articleId") String articleIds) {
-    	AutoReplyArticle autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
+    	ReplySingleImageText autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
     	autoReplyArticle.setKeywords(keywords);
     	
     	autoReplyArticle.setEditTime(new Date());

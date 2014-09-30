@@ -15,4 +15,11 @@ public interface ImageMapper extends BaseMapper<Image> {
 	 * @param id
 	 */
 	public void delete(Serializable id);
+
+	/**
+	 * 根据uuid获取图片
+	 * @param uuid
+	 * @return
+	 */
+	public Image getByUuid(String uuid);
 }

@@ -33,13 +33,12 @@
                             <li><a href="/center/platform.htm">公众号设置</a></li>
                             <li><a href="/center/defReplyMsg.htm">默认自动回复</a></li>
                             <li><a href="/center/autoReplyText/list.htm">管理文本回复</a></li>
-                            <li><a href="/center/autoReplyArticle/new.htm">新增自动回复</a></li>
+                            <li><a href="/center/autoReplyArticle/list.htm">管理图文回复</a></li>
                             <li class="divider"></li>
                             <li><a href="/center/article/addui.htm">新增文章</a></li>
                             <li><a href="/center/article/list.htm">文章列表</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/center/activities/addui.htm">添加活动</a></li>
                             <li><a href="/center/activities/list.htm">活动列表</a></li>
+                            <li class="divider"></li>
                             <li><a href="/center/companyProfile.htm">公司介绍</a></li>
                             <li><a href="/center/linkus.htm">联系我们</a></li>
                             <li class="divider"></li>

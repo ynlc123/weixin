@@ -96,6 +96,7 @@
 	<script src="/plugin/jquery.1.11.1-min.js"></script>
 	<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/plugin/artDialog/dialog-min.js"></script>
+	<script src="/js/tips.js"></script>
 	<script src="/js/platform.js"></script>
 </body>
 </html>

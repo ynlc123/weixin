@@ -3,10 +3,12 @@ package com.luoshengsha.onegreen.controller;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.luoshengsha.onegreen.bean.LinkUs;
@@ -52,8 +54,9 @@ public class LinkUsController {
      * @param linkUs
      * @return
      */
-    @RequestMapping(value="/center/update_linkus.htm")
-    public ModelAndView updateLinkUs(LinkUs linkUs) {
+    @RequestMapping(value="/center/linkus/update.htm")
+    @ResponseBody
+    public void updateLinkUs(LinkUs linkUs, HttpServletResponse response) {
     	try {
 			Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
 			LinkUs newLinkUs = linkUsService.getByPlatform(platform);
@@ -66,29 +69,10 @@ public class LinkUsController {
 			newLinkUs.setContent(linkUs.getContent());
 			newLinkUs.setEditTime(new Date());
 			linkUsService.edit(newLinkUs);
-			
-			return new ModelAndView("redirect:/center/linkus_success.htm");
+			WebUtil.print2JsonMsg(response, true, "编辑成功！");
 		} catch (Exception e) {
 			logger.error("更新联系我们失败", e);
-			return new ModelAndView("redirect:/center/linkus_failure.htm");
+			WebUtil.print2JsonMsg(response, false, "编辑失败！");
 		}
-    }
-    
-    /**
-     * 更新成功
-     * @return
-     */
-    @RequestMapping(value="/center/linkus_success.htm")
-    public String success() {
-    	return "linkUs-success";
-    }
-    
-    /**
-     * 更新失败
-     * @return
-     */
-    @RequestMapping(value="/center/linkus_failure.htm")
-    public String failure() {
-    	return "linkUs-failure";
     }
 }

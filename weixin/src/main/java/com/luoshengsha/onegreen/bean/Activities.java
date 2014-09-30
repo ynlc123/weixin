@@ -20,12 +20,12 @@ public class Activities {
 	private Image image;
 	/**创建时间**/
 	private Date createTime;
-	/**有效时长**/
-	private int validDays;
 	/**编辑时间**/
 	private Date editTime;
-	/**有效时间**/
-	private Date validTime;
+	/**起始时间**/
+	private String startTime;
+	/**终止时间**/
+	private String endTime;
 	/**公众号**/
 	private Platform platform;
 	/**状态 1：可用   0：不可用**/
@@ -67,23 +67,23 @@ public class Activities {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public int getValidDays() {
-		return validDays;
-	}
-	public void setValidDays(int validDays) {
-		this.validDays = validDays;
-	}
 	public Date getEditTime() {
 		return editTime;
 	}
 	public void setEditTime(Date editTime) {
 		this.editTime = editTime;
 	}
-	public Date getValidTime() {
-		return validTime;
+	public String getStartTime() {
+		return startTime;
 	}
-	public void setValidTime(Date validTime) {
-		this.validTime = validTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 	public Platform getPlatform() {
 		return platform;

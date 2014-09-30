@@ -24,8 +24,6 @@ public class Article {
 	private Date editTime;
 	/**公众号**/
 	private Platform platform;
-	/**文章类型**/
-	private ArticleType type;
 	/**是否是自动回复文章**/
 	private boolean isAutoReply;
 	/**浏览次数**/
@@ -80,12 +78,6 @@ public class Article {
 	}
 	public void setPlatform(Platform platform) {
 		this.platform = platform;
-	}
-	public ArticleType getType() {
-		return type;
-	}
-	public void setType(ArticleType type) {
-		this.type = type;
 	}
 	public boolean isAutoReply() {
 		return isAutoReply;

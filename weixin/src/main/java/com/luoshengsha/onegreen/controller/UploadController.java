@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -25,6 +26,7 @@ import com.luoshengsha.onegreen.service.CustomerService;
 import com.luoshengsha.onegreen.service.ImageService;
 import com.luoshengsha.onegreen.service.PlatformService;
 import com.luoshengsha.onegreen.utils.IdGenerator;
+import com.luoshengsha.onegreen.utils.WebUtil;
 
 @Controller
 public class UploadController {
@@ -48,10 +50,11 @@ public class UploadController {
      */
     @RequestMapping(value = "/uploadFile.htm", method = RequestMethod.POST)
     public @ResponseBody
-    void uploadFileHandler(@RequestParam("file") MultipartFile file,
-    		HttpServletResponse response) {
-    	
-    	Customer loginCustomer = customerService.getByAccount("luoshengsha2");
+    void uploadFileHandler(@RequestParam("upfile") MultipartFile file,
+    		HttpServletResponse response,
+    		HttpServletRequest request) {
+    	System.out.println("jsessionid: " + request.getParameter("jsessionid"));
+    	Customer loginCustomer = WebUtil.getLoginCustomer();
     	Platform platform = platformService.getByCustomer(loginCustomer);
         if (!file.isEmpty()) {
             try {
@@ -92,8 +95,10 @@ public class UploadController {
                 imageService.save(image);
                 
                 logger.info("Server File Location=" + serverFile.getAbsolutePath());
-                response.getWriter().print("{\"success\":"+true+",\"id\":\""+image.getUuid()+"\"}");
- 
+                //response.getWriter().print("{\"success\":"+true+",\"id\":\""+image.getUuid()+"\"}");
+                //response.getWriter().print("{\"original\":\"1\",\"url\":\"http://localhost:8080/" + picPath+"\",\"title\":\"2\",\"state\":\"SUCCESS\"}");
+                String rs = "{\"name\":\"13511411655689529.jpg\", \"originalName\": \"Hydrangeas.jpg\", \"size\": 595284, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"images/2014/09/25/2463b711-0a92-4719-a9bc-f6f58c2413b1.jpg\"}";
+                response.getWriter().print(rs);
             } catch (Exception e) {
                 //return "You failed to upload " + name + " => " + e.getMessage();
             }

@@ -5,14 +5,14 @@
 <mapper namespace="com.luoshengsha.onegreen.mapper.ActivitiesMapper">
 	<!-- 保存 -->
 	<insert id="save" parameterType="activities">
-		insert into activities(uuid,title,content,image_id,createTime,validDays,editTime,validTime,platform_id)
-		values(#{uuid},#{title},#{content},#{image.id},#{createTime},#{validDays},#{editTime},#{validTime},#{platform.id})
+		insert into activities(uuid,title,content,image_id,createTime,editTime,startTime,endTime,platform_id)
+		values(#{uuid},#{title},#{content},#{image.id},#{createTime},#{editTime},#{startTime},#{endTime},#{platform.id})
 	</insert>
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="activities">
 		update activities set title=#{title},content=#{content},image_id=#{image.id},
-							  validDays=#{validDays},editTime=#{editTime},validTime=#{validTime}
+							  editTime=#{editTime},startTime=#{startTime},endTime=#{endTime}
 		where id=#{id}
 	</update>
 	
@@ -21,9 +21,14 @@
 		delete from activities where uuid=#{uuid}
 	</delete>
 	
-	<!-- 根据uuid禁用活动（假删除） -->
+	<!-- 根据uuid禁用活动 -->
 	<update id="forbid" parameterType="string">
 		update activities set status=0 where uuid=#{uuid}
+	</update>
+	
+	<!-- 根据uuid启用活动 -->
+	<update id="enable" parameterType="string">
+		update activities set status=1 where uuid=#{uuid}
 	</update>
 	
 	<!-- resultMap -->
@@ -46,7 +51,7 @@
 	<select id="query" parameterType="map" resultMap="activitiesResultMap">
 		select * from activities
 		<where>
-				platform_id=#{platform.id}
+			platform_id=#{platform.id}
 		</where>
 		<if test="orderBy != null">
 			order by ${orderBy}

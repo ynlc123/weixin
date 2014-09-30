@@ -99,6 +99,7 @@
 	<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/plugin/artDialog/dialog-min.js"></script>
 	<script src="/plugin/base64.js"></script>
+	<script src="/js/tips.js"></script>
 	<script src="/js/auto_reply_text_list.js"></script>
 </body>
 </html>

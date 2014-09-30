@@ -11,8 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.luoshengsha.onegreen.bean.Article;
-import com.luoshengsha.onegreen.bean.ArticleType;
-import com.luoshengsha.onegreen.bean.Image;
 import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.service.ArticleService;
 import com.luoshengsha.onegreen.service.ImageService;
@@ -56,7 +54,6 @@ public class ArticleTest {
 		text_article.setCreateTime(new Date());
 		text_article.setEditTime(new Date());
 		text_article.setPlatform(platformService.getByOriginalId("gh_3e7314baeab1"));
-		text_article.setType(ArticleType.TEXT);
 		
 		articleService.save(text_article);
 		
@@ -69,7 +66,6 @@ public class ArticleTest {
 		image_text_article.setCreateTime(new Date());
 		image_text_article.setEditTime(new Date());
 		image_text_article.setPlatform(platformService.getByOriginalId("gh_3e7314baeab1"));
-		image_text_article.setType(ArticleType.IMAGE_TEXT);
 		
 		articleService.save(image_text_article);
 	}

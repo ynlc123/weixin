@@ -5,8 +5,8 @@
 <mapper namespace="com.luoshengsha.onegreen.mapper.ArticleMapper">
 	<!-- 保存 -->
 	<insert id="save" parameterType="article" keyProperty="id" useGeneratedKeys="true">
-		insert into article(uuid,title,image_id,content,createTime,editTime,type,isAutoReply,views,platform_id,status)
-		values(#{uuid},#{title},#{image.id},#{content},#{createTime},#{editTime},#{type},#{isAutoReply},#{views},#{platform.id},#{status})
+		insert into article(uuid,title,image_id,content,createTime,editTime,isAutoReply,views,platform_id,status)
+		values(#{uuid},#{title},#{image.id},#{content},#{createTime},#{editTime},#{isAutoReply},#{views},#{platform.id},#{status})
 	</insert>
 	
 	<!-- 更新 -->
@@ -48,9 +48,6 @@
 			<if test="platform != null">
 				and platform_id=#{platform.id}
 			</if>
-			<if test="type != null">
-				and type=#{type}
-			</if>
 		</where>
 		<if test="orderBy != null">
 			order by ${orderBy}
@@ -65,9 +62,6 @@
 			status=1 and isAutoReply=0
 			<if test="platform != null">
 				and platform_id=#{platform.id}
-			</if>
-			<if test="type != null">
-				and type=#{type}
 			</if>
 		</where>
 	</select>

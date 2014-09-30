@@ -19,7 +19,8 @@
 		<typeAlias type="com.luoshengsha.onegreen.bean.DefaultReplyMessage" alias="defaultReplyMessage"/>
 		<typeAlias type="com.luoshengsha.onegreen.bean.Activities" alias="activities"/>
 		<typeAlias type="com.luoshengsha.onegreen.bean.Article" alias="article"/>
-		<typeAlias type="com.luoshengsha.onegreen.bean.AutoReplyArticle" alias="autoReplyArticle"/>
-		<typeAlias type="com.luoshengsha.onegreen.bean.AutoReplyText" alias="autoReplyText"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.ReplySingleImageText" alias="replySingleImageText"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.ReplyMutipleImageText" alias="replyMutipleImageText"/>
+		<typeAlias type="com.luoshengsha.onegreen.bean.ReplyText" alias="replyText"/>
 	</typeAliases>
 </configuration>

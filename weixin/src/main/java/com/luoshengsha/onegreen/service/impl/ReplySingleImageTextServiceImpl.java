@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.luoshengsha.onegreen.bean.Article;
-import com.luoshengsha.onegreen.bean.AutoReplyArticle;
+import com.luoshengsha.onegreen.bean.ReplySingleImageText;
 import com.luoshengsha.onegreen.mapper.ArticleMapper;
 import com.luoshengsha.onegreen.mapper.AutoReplyArticleMapper;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
-import com.luoshengsha.onegreen.service.AutoReplyArticleService;
+import com.luoshengsha.onegreen.service.ReplySingleImageTextService;
 
 /**
  * 自动回复接口实现
@@ -19,25 +19,25 @@ import com.luoshengsha.onegreen.service.AutoReplyArticleService;
  * @date 2014年9月10日 上午11:41:18
  */
 @Service
-public class AutoReplyArticleServiceImpl extends DAOSupport<AutoReplyArticle>
-		implements AutoReplyArticleService {
+public class ReplySingleImageTextServiceImpl extends DAOSupport<ReplySingleImageText>
+		implements ReplySingleImageTextService {
 	@Resource
 	private AutoReplyArticleMapper mapper;
 	@Resource
 	private ArticleMapper articleMapper;
 	
 	@Override
-	protected BaseMapper<AutoReplyArticle> getMapper() {
+	protected BaseMapper<ReplySingleImageText> getMapper() {
 		return mapper;
 	}
 
 	@Override
-	public AutoReplyArticle getByKeywords(String keywords) {
+	public ReplySingleImageText getByKeywords(String keywords) {
 		return mapper.getByKeywords(keywords);
 	}
 
 	@Override
-	public void save(AutoReplyArticle autoReplyArticle) {
+	public void save(ReplySingleImageText autoReplyArticle) {
 		//保存自动回复文章信息
 		super.save(autoReplyArticle);
 		//保存自动回复文章关系
@@ -49,7 +49,7 @@ public class AutoReplyArticleServiceImpl extends DAOSupport<AutoReplyArticle>
 	}
 
 	@Override
-	public void update(AutoReplyArticle autoReplyArticle) {
+	public void update(ReplySingleImageText autoReplyArticle) {
 		//删除自动回复文章关系
 		mapper.delAutoReplyArticle(autoReplyArticle);
 		//更新自动回复文章信息
@@ -63,23 +63,23 @@ public class AutoReplyArticleServiceImpl extends DAOSupport<AutoReplyArticle>
 	}
 
 	@Override
-	public void forbid(AutoReplyArticle autoReplyArticle) {
+	public void forbid(ReplySingleImageText autoReplyArticle) {
 		mapper.setStatus(autoReplyArticle, false);
 	}
 
 	@Override
-	public void enable(AutoReplyArticle autoReplyArticle) {
+	public void enable(ReplySingleImageText autoReplyArticle) {
 		mapper.setStatus(autoReplyArticle, true);
 	}
 
 	@Override
-	public AutoReplyArticle getByUuid(String uuid) {
+	public ReplySingleImageText getByUuid(String uuid) {
 		return mapper.getByUuid(uuid);
 	}
 
 	@Override
 	public void delete(String uuid) {
-		AutoReplyArticle autoReplyArticle = mapper.getByUuid(uuid);
+		ReplySingleImageText autoReplyArticle = mapper.getByUuid(uuid);
 		List<Article> articleList = autoReplyArticle.getArticles();
 		if(articleList != null && !articleList.isEmpty()) {
 			for(Article article : articleList) {

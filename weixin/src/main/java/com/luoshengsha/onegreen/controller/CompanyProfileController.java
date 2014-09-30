@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +70,7 @@ public class CompanyProfileController {
     @RequestMapping(value="/center/companyProfile/update.htm")
     public void update(@RequestParam(value="companyName") String companyName,
     		@RequestParam(value="content") String content,
-    		@RequestParam(value="imageIds",defaultValue="") String imageIds,
+    		@RequestParam(value="attachId",defaultValue="") String attachId,
     		HttpServletResponse response) {
     	
     	try {
@@ -85,12 +84,18 @@ public class CompanyProfileController {
 			}
 			
 			//公司简介图片
-			List<Image> imageList = new ArrayList<Image>();
+			/*List<Image> imageList = new ArrayList<Image>();
 			if(!StringUtils.isEmpty(imageIds)) {
 				String [] imageIdArrays = imageIds.split("#");
 				for(int i=0,j=imageIdArrays.length;i<j;i++) {
 					imageList.add(imageService.find(imageIdArrays[i]));
 				}
+			}*/
+			//临时，往后待完善
+			List<Image> imageList = new ArrayList<Image>();
+			Image image = imageService.find(attachId);
+			if(image != null) {
+				imageList.add(image);
 			}
 			
 			profile.setImages(imageList);

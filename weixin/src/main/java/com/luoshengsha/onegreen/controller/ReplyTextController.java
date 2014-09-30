@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.luoshengsha.onegreen.bean.AutoReplyText;
+import com.luoshengsha.onegreen.bean.ReplyText;
 import com.luoshengsha.onegreen.bean.Platform;
-import com.luoshengsha.onegreen.service.AutoReplyTextService;
+import com.luoshengsha.onegreen.service.ReplyTextService;
 import com.luoshengsha.onegreen.service.PlatformService;
 import com.luoshengsha.onegreen.utils.IdGenerator;
 import com.luoshengsha.onegreen.utils.WebUtil;
@@ -30,14 +30,14 @@ import com.luoshengsha.onegreen.utils.page.QueryResult;
  * @date 2014年9月23日 下午11:28:36
  */
 @Controller
-public class AutoReplyTextController {
+public class ReplyTextController {
 	/** 记录日志**/
-    static Logger logger = Logger.getLogger(AutoReplyTextController.class);
+    static Logger logger = Logger.getLogger(ReplyTextController.class);
     
     @Resource
     private PlatformService platformService;
     @Resource
-    private AutoReplyTextService autoReplyTextService;
+    private ReplyTextService autoReplyTextService;
 	
     /**
      * 自动文本回复列表
@@ -52,7 +52,7 @@ public class AutoReplyTextController {
     			return new ModelAndView("redirect:/center/platform.htm");
     		}
 			//页码，每页显示10个自动文本回复
-			PageView<AutoReplyText> pageView = new PageView<AutoReplyText>(pageNo, 10);
+			PageView<ReplyText> pageView = new PageView<ReplyText>(pageNo, 10);
 			
 			//条件
 			Map<String, Object> conditionMap = new HashMap<String, Object>();
@@ -62,12 +62,12 @@ public class AutoReplyTextController {
 			LinkedHashMap<String,String> orderbyMap = new LinkedHashMap<String,String>();
 			orderbyMap.put("createTime", "desc");
 			
-			QueryResult<AutoReplyText> qr = autoReplyTextService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
+			QueryResult<ReplyText> qr = autoReplyTextService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
 			pageView.setQueryResult(qr);
 			
-			//若本页无数据，则显示前一页
+			//若本页无数据，则最后一页
 			if(pageView.getRecords().isEmpty() && pageNo > 1) {
-				return new ModelAndView("redirect:/center/autoReplyText/list.htm", "pageNo", pageNo-1);
+				return new ModelAndView("redirect:/center/autoReplyText/list.htm", "pageNo", pageView.getTotalpage()==0 ? 1 : pageView.getTotalpage());
 			}
 			
 			return new ModelAndView("center/autoReplyText-list", "pageView", pageView);
@@ -99,7 +99,7 @@ public class AutoReplyTextController {
 			//获取登录客户的公众号信息
 			Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
 			//自动文本回复
-			AutoReplyText autoReplyText = new AutoReplyText();
+			ReplyText autoReplyText = new ReplyText();
 			autoReplyText.setUuid(IdGenerator.generateId());
 			autoReplyText.setKeywords(keywords);
 			autoReplyText.setContent(content);
@@ -124,7 +124,7 @@ public class AutoReplyTextController {
     @RequestMapping(value="/center/autoReplyText/edit.htm")
     public ModelAndView edit(String uuid) {
     	try {
-			AutoReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
+			ReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
 			if(autoReplyText == null) {
 				return new ModelAndView("404");
 			}
@@ -147,7 +147,7 @@ public class AutoReplyTextController {
     		@RequestParam(value="uuid") String uuid) {
     	try {
 			//自动文本回复
-			AutoReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
+			ReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
 			autoReplyText.setKeywords(keywords);
 			autoReplyText.setContent(content);
 			autoReplyText.setEditTime(new Date());
@@ -187,7 +187,7 @@ public class AutoReplyTextController {
     @ResponseBody
     public void forbid(String uuid, HttpServletResponse response) {
     	try {
-			AutoReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
+			ReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
 			autoReplyTextService.forbid(autoReplyText);
 			
 			WebUtil.print2JsonMsg(response, true, "禁用成功！");
@@ -205,7 +205,7 @@ public class AutoReplyTextController {
     @ResponseBody
     public void enable(String uuid, HttpServletResponse response) {
     	try {
-    		AutoReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
+    		ReplyText autoReplyText = autoReplyTextService.getByUuid(uuid);
     		autoReplyTextService.enable(autoReplyText);
 			
 			WebUtil.print2JsonMsg(response, true, "启用成功！");

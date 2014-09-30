@@ -10,7 +10,7 @@ $(function () {
 $('#fileupload').uploadify({
     swf: '/uploadify/3.1/uploadify.swf',
     uploader: '/uploadFile.htm',
-    formData: {'jsessionid': $("#loginsession").val()},
+    formData: {'jsessionid': $("#jsessionid").val()},
     buttonClass: 'some-class',
     queueID: "fileQueue", //和存放队列的DIV的id一致
     debug: false,//debug模式开/关，打开后会显示debug时的信息

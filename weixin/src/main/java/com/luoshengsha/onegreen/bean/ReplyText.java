@@ -7,7 +7,7 @@ import java.util.Date;
  * @author luoshengsha
  * @date 2014年9月24日 下午3:58:21
  */
-public class AutoReplyText {
+public class ReplyText {
 	/**id**/
 	private int id;
 	/**uuid**/
