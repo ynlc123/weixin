@@ -3,7 +3,7 @@ package com.luoshengsha.onegreen.service;
 import com.luoshengsha.onegreen.bean.ReplySingleImageText;
 
 /**
- * 自动回复接口
+ * 单图文回复接口
  * @author luoshengsha
  * @date 2014年9月10日 上午11:40:07
  */
@@ -17,21 +17,21 @@ public interface ReplySingleImageTextService extends BaseDAO<ReplySingleImageTex
 	
 	/**
 	 * 更新
-	 * @param autoReplyArticle
+	 * @param imageText
 	 */
-	public void update(ReplySingleImageText autoReplyArticle);
+	public void update(ReplySingleImageText imageText);
 	
 	/**
 	 * 禁用
-	 * @param autoReplyArticle
+	 * @param imageText
 	 */
-	public void forbid(ReplySingleImageText autoReplyArticle);
+	public void forbid(ReplySingleImageText imageText);
 	
 	/**
 	 * 启用
-	 * @param autoReplyArticle
+	 * @param imageText
 	 */
-	public void enable(ReplySingleImageText autoReplyArticle);
+	public void enable(ReplySingleImageText imageText);
 	
 	/**
 	 * 根据uuid获取自动回复文章

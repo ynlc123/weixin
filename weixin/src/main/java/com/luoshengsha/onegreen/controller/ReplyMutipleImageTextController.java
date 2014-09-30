@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.luoshengsha.onegreen.bean.Article;
-import com.luoshengsha.onegreen.bean.ReplySingleImageText;
 import com.luoshengsha.onegreen.bean.Platform;
+import com.luoshengsha.onegreen.bean.ReplyMutipleImageText;
 import com.luoshengsha.onegreen.service.ArticleService;
-import com.luoshengsha.onegreen.service.ReplySingleImageTextService;
 import com.luoshengsha.onegreen.service.PlatformService;
+import com.luoshengsha.onegreen.service.ReplyMutipleImageTextService;
 import com.luoshengsha.onegreen.utils.WebUtil;
 import com.luoshengsha.onegreen.utils.page.PageView;
 import com.luoshengsha.onegreen.utils.page.QueryResult;
 
 /**
- * 自动回复文章控制器
+ * 多图文回复控制器
  * @author luoshengsha
  * @date 2014年9月11日 下午4:32:46
  */
 @Controller
-@RequestMapping(value="/center/autoReplyArticle")
-public class AutoReplyArticleController {
+@RequestMapping(value="/center/replyMutipleImageText")
+public class ReplyMutipleImageTextController {
 	/** 记录日志**/
-    static Logger logger = Logger.getLogger(AutoReplyArticleController.class);
+    static Logger logger = Logger.getLogger(ReplyMutipleImageTextController.class);
     
     @Resource
     private PlatformService platformService;
     @Resource
-    private ReplySingleImageTextService autoReplyArticleService;
+    private ReplyMutipleImageTextService imageTextService;
     @Resource
     private ArticleService articleService;
 	
@@ -57,8 +57,8 @@ public class AutoReplyArticleController {
     		if(platform == null) {
     			return new ModelAndView("redirect:/center/platform.htm");
     		}
-			//页码，每页显示10个自动回复文章
-			PageView<ReplySingleImageText> pageView = new PageView<ReplySingleImageText>(pageNo, 10);
+			//页码，每页显示10个多图文回复
+			PageView<ReplyMutipleImageText> pageView = new PageView<ReplyMutipleImageText>(pageNo, 10);
 			
 			//条件
 			Map<String, Object> conditionMap = new HashMap<String, Object>();
@@ -68,32 +68,32 @@ public class AutoReplyArticleController {
 			LinkedHashMap<String,String> orderbyMap = new LinkedHashMap<String,String>();
 			orderbyMap.put("editTime", "desc");
 			
-			QueryResult<ReplySingleImageText> qr = autoReplyArticleService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
+			QueryResult<ReplyMutipleImageText> qr = imageTextService.query(pageView.getFirstResult(),pageView.getMaxresult(), conditionMap,orderbyMap);
 			pageView.setQueryResult(qr);
 			
-			return new ModelAndView("center/autoReplyArticle-list", "pageView", pageView);
+			return new ModelAndView("center/mutipleImageText-list", "pageView", pageView);
 		} catch (Exception e) {
-			logger.error("显示自动回复文章列表失败", e);
+			logger.error("显示多图文回复列表失败", e);
 			return new ModelAndView("500");
 		}
     }
     
     /**
-     * 添加自动回复文章界面
+     * 添加多图文回复界面
      * @return
      */
-    @RequestMapping(value="/single-new.htm")
+    @RequestMapping(value="/new.htm")
     public String addui() {
     	Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
 		//当客户尚未填写公众号信息时，跳转到公众号编辑页面。
 		if(platform == null) {
 			return "redirect:/center/platform.htm";
 		}
-    	return "center/autoReplyArticle-new";
+    	return "center/mutipleImageText-new";
     }
     
     /**
-     * 保存自动回复文章
+     * 保存多图文回复
      * @param keywords
      * @param articleIds
      * @return
@@ -103,14 +103,14 @@ public class AutoReplyArticleController {
     		@RequestParam(value="articleId") String articleIds) {
     	Platform platform = platformService.getByCustomer(WebUtil.getLoginCustomer());
     	
-    	ReplySingleImageText autoReplyArticle = new ReplySingleImageText();
-    	autoReplyArticle.setKeywords(keywords);
+    	ReplyMutipleImageText imageText = new ReplyMutipleImageText();
+    	imageText.setKeywords(keywords);
     	
     	Date date = new Date();
-    	autoReplyArticle.setCreateTime(date);
-    	autoReplyArticle.setEditTime(date);
-    	autoReplyArticle.setPlatform(platform);
-    	autoReplyArticle.setStatus(1);
+    	imageText.setCreateTime(date);
+    	imageText.setEditTime(date);
+    	imageText.setPlatform(platform);
+    	imageText.setStatus(1);
     	
     	//文章列表
     	List<Article> articleList = new ArrayList<Article>();
@@ -121,33 +121,33 @@ public class AutoReplyArticleController {
     			articleList.add(article);
     		}
     	}
-    	autoReplyArticle.setArticles(articleList);
+    	imageText.setArticles(articleList);
     	
-    	autoReplyArticleService.save(autoReplyArticle);
+    	imageTextService.save(imageText);
     	
     	return null;
     }
     
     /**
-     * 根据uuid获取自动回复文章
+     * 根据uuid获取多图文回复
      * @param uuid
      */
     @RequestMapping(value="/edit.htm")
     public ModelAndView edit(String uuid) {
     	try {
-			ReplySingleImageText autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
-			if(autoReplyArticle == null) {
+			ReplyMutipleImageText imageText = imageTextService.getByUuid(uuid);
+			if(imageText == null) {
 				return new ModelAndView("404");
 			}
-			return new ModelAndView("autoReplyArticle-edit", "autoReplyArticle", autoReplyArticle);
+			return new ModelAndView("mutipleImageText-edit", "imageText", imageText);
 		} catch (Exception e) {
-			logger.error("根据uuid获取自动回复文章失败！", e);
+			logger.error("根据uuid获取多图文回复失败！", e);
 			return new ModelAndView("500");
 		}
     }
     
     /**
-     * 更新自动回复文章
+     * 更新多图文回复
      * @param uuid
      * @param keywords
      * @param articleIds
@@ -156,10 +156,10 @@ public class AutoReplyArticleController {
     public void update(@RequestParam(value="uuid") String uuid,
     		@RequestParam(value="keywords") String keywords, 
     		@RequestParam(value="articleId") String articleIds) {
-    	ReplySingleImageText autoReplyArticle = autoReplyArticleService.getByUuid(uuid);
-    	autoReplyArticle.setKeywords(keywords);
+    	ReplyMutipleImageText imageText = imageTextService.getByUuid(uuid);
+    	imageText.setKeywords(keywords);
     	
-    	autoReplyArticle.setEditTime(new Date());
+    	imageText.setEditTime(new Date());
     	
     	//文章列表
     	List<Article> articleList = new ArrayList<Article>();
@@ -170,9 +170,9 @@ public class AutoReplyArticleController {
     			articleList.add(article);
     		}
     	}
-    	autoReplyArticle.setArticles(articleList);
+    	imageText.setArticles(articleList);
     	
-    	autoReplyArticleService.update(autoReplyArticle);
+    	imageTextService.update(imageText);
     }
     
     /**
@@ -182,7 +182,7 @@ public class AutoReplyArticleController {
     @RequestMapping(value="/delete.htm")
     public void delete(String uuid, HttpServletResponse response) {
     	try {
-			autoReplyArticleService.delete(uuid);
+			imageTextService.delete(uuid);
 			WebUtil.print2JsonMsg(response, true, "删除成功！");
 		} catch (Exception e) {
 			logger.error("删除失败", e);

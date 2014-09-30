@@ -1,20 +1,16 @@
 package com.luoshengsha.onegreen.service.impl;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.luoshengsha.onegreen.bean.Article;
 import com.luoshengsha.onegreen.bean.ReplySingleImageText;
-import com.luoshengsha.onegreen.mapper.ArticleMapper;
-import com.luoshengsha.onegreen.mapper.AutoReplyArticleMapper;
+import com.luoshengsha.onegreen.mapper.ReplySingleImageTextMapper;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
 import com.luoshengsha.onegreen.service.ReplySingleImageTextService;
 
 /**
- * 自动回复接口实现
+ * 单图文回复接口实现
  * @author luoshengsha
  * @date 2014年9月10日 上午11:41:18
  */
@@ -22,10 +18,8 @@ import com.luoshengsha.onegreen.service.ReplySingleImageTextService;
 public class ReplySingleImageTextServiceImpl extends DAOSupport<ReplySingleImageText>
 		implements ReplySingleImageTextService {
 	@Resource
-	private AutoReplyArticleMapper mapper;
-	@Resource
-	private ArticleMapper articleMapper;
-	
+	private ReplySingleImageTextMapper mapper;
+
 	@Override
 	protected BaseMapper<ReplySingleImageText> getMapper() {
 		return mapper;
@@ -37,39 +31,18 @@ public class ReplySingleImageTextServiceImpl extends DAOSupport<ReplySingleImage
 	}
 
 	@Override
-	public void save(ReplySingleImageText autoReplyArticle) {
-		//保存自动回复文章信息
-		super.save(autoReplyArticle);
-		//保存自动回复文章关系
-		if(autoReplyArticle.getArticles() != null && !autoReplyArticle.getArticles().isEmpty()) {
-			for(Article article : autoReplyArticle.getArticles()) {
-				mapper.saveAutoReplyArticle(autoReplyArticle, article);
-			}
-		}
+	public void update(ReplySingleImageText imageText) {
+		mapper.update(imageText);
 	}
 
 	@Override
-	public void update(ReplySingleImageText autoReplyArticle) {
-		//删除自动回复文章关系
-		mapper.delAutoReplyArticle(autoReplyArticle);
-		//更新自动回复文章信息
-		mapper.update(autoReplyArticle);
-		//保存自动回复文章关系
-		if(autoReplyArticle.getArticles() != null && !autoReplyArticle.getArticles().isEmpty()) {
-			for(Article article : autoReplyArticle.getArticles()) {
-				mapper.saveAutoReplyArticle(autoReplyArticle, article);
-			}
-		}
+	public void forbid(ReplySingleImageText imageText) {
+		mapper.setStatus(imageText, 0);
 	}
 
 	@Override
-	public void forbid(ReplySingleImageText autoReplyArticle) {
-		mapper.setStatus(autoReplyArticle, false);
-	}
-
-	@Override
-	public void enable(ReplySingleImageText autoReplyArticle) {
-		mapper.setStatus(autoReplyArticle, true);
+	public void enable(ReplySingleImageText imageText) {
+		mapper.setStatus(imageText, 1);
 	}
 
 	@Override
@@ -79,20 +52,6 @@ public class ReplySingleImageTextServiceImpl extends DAOSupport<ReplySingleImage
 
 	@Override
 	public void delete(String uuid) {
-		ReplySingleImageText autoReplyArticle = mapper.getByUuid(uuid);
-		List<Article> articleList = autoReplyArticle.getArticles();
-		if(articleList != null && !articleList.isEmpty()) {
-			for(Article article : articleList) {
-				//如果自动回复的文章，则删除
-				if(article.isAutoReply()) {
-					articleMapper.delete(article.getUuid());
-				}
-			}
-		}
-		//删除自动回复与文章的关系
-		mapper.delAutoReplyArticle(autoReplyArticle);
-		//删除自动回复
 		mapper.delete(uuid);
 	}
-	
 }

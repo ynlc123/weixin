@@ -45,7 +45,7 @@ public interface ReplyMutipleImageTextMapper extends BaseMapper<ReplyMutipleImag
 	 * @param uuid
 	 * @return
 	 */
-	public ReplyMutipleImageText getByUuid(String uuid);
+	public ReplyMutipleImageText getByUuid(Serializable uuid);
 	
 	/**
 	 * 根据uuid删除多图文回复
