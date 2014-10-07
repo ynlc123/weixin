@@ -35,6 +35,7 @@
 	<resultMap type="activities" id="activitiesResultMap">
 		<id property="id" column="id"/>
 		<association property="image" column="image_id" select="com.luoshengsha.onegreen.mapper.ImageMapper.find"/>
+		<association property="platform" column="platform_id" select="com.luoshengsha.onegreen.mapper.PlatformMapper.find"/>
 	</resultMap>
 	
 	<!-- 根据id获取 -->

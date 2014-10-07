@@ -5,13 +5,13 @@
 <mapper namespace="com.luoshengsha.onegreen.mapper.ArticleMapper">
 	<!-- 保存 -->
 	<insert id="save" parameterType="article" keyProperty="id" useGeneratedKeys="true">
-		insert into article(uuid,title,image_id,content,createTime,editTime,isAutoReply,views,platform_id,status)
-		values(#{uuid},#{title},#{image.id},#{content},#{createTime},#{editTime},#{isAutoReply},#{views},#{platform.id},#{status})
+		insert into article(uuid,title,image_id,content,createTime,editTime,views,platform_id,status)
+		values(#{uuid},#{title},#{image.id},#{content},#{createTime},#{editTime},#{views},#{platform.id},#{status})
 	</insert>
 	
 	<!-- 更新 -->
 	<update id="update" parameterType="article">
-		update article set title=#{title},image_id=#{image.id},editTime=#{editTime} where uuid=#{uuid}
+		update article set title=#{title},content=#{content},image_id=#{image.id},editTime=#{editTime} where uuid=#{uuid}
 	</update>
 	
 	<!-- 删除 -->
@@ -20,14 +20,15 @@
 	</delete>
 	
 	<!-- 根据uuid禁用文章（假删除） -->
-	<update id="forbid" parameterType="string">
-		update article set status=0 where uuid=#{uuid}
+	<update id="setStatus">
+		update article set status=#{status} where uuid=#{uuid}
 	</update>
 	
 	<!-- resultMap -->
 	<resultMap type="article" id="articleResultMap">
 		<id property="id" column="id"/>
 		<association property="image" column="image_id" select="com.luoshengsha.onegreen.mapper.ImageMapper.find"/>
+		<association property="platform" column="platform_id" select="com.luoshengsha.onegreen.mapper.PlatformMapper.find"/>
 	</resultMap>
 	
 	<!-- 根据id查找 -->
@@ -44,7 +45,6 @@
 	<select id="query" parameterType="map" resultMap="articleResultMap">
 		select * from article
 		<where>
-			status=1 and isAutoReply=0
 			<if test="platform != null">
 				and platform_id=#{platform.id}
 			</if>
@@ -59,7 +59,6 @@
 	<select id="getCount" parameterType="map" resultType="int">
 		select count(*) from article
 		<where>
-			status=1 and isAutoReply=0
 			<if test="platform != null">
 				and platform_id=#{platform.id}
 			</if>
@@ -71,10 +70,10 @@
 		update article set views =views+1 where uuid=#{uuid}
 	</update>
 	
-	<!-- 获取自动回复信息里的文章 -->
-	<select id="getAutoReplyArticles" parameterType="string" resultMap="articleResultMap">
+	<!-- 获取多图文里的文章列表 -->
+	<select id="getMutipleImageTextArticles" parameterType="string" resultMap="articleResultMap">
 		select art.* from article art 
-		left join autoReplyArticle_article reply_art on reply_art.article_id=art.id
-		where reply_art.autoReplyArticle_id=#{autoReplyArticle_id}
+		left join mutipleImageText_article imagetext_art on imagetext_art.article_id=art.id
+		where imagetext_art.mutipleImageText_id=#{mutipleImageText_id}
 	</select>
 </mapper>

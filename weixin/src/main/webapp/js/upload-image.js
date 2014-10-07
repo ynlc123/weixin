@@ -14,7 +14,7 @@ $('#fileupload').uploadify({
     buttonClass: 'some-class',
     queueID: "fileQueue", //和存放队列的DIV的id一致
     debug: false,//debug模式开/关，打开后会显示debug时的信息
-    fileObjName: 'file',//上传的文件
+    fileObjName: 'upfile',//上传的文件
     progressData: 'percentage', // 'percentage''speed''all'//队列中显示文件上传进度的方式：all-上传速度+百分比，percentage-百分比，speed-上传速度
     auto: false, //是否自动开始
     multi: false, //是否支持多文件上传
@@ -34,4 +34,3 @@ $('#fileupload').uploadify({
         $("a.fileupload").show();
     }
 });
-

@@ -1,5 +1,6 @@
 package com.luoshengsha.onegreen.service;
 
+import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.bean.ReplyText;
 
 /**
@@ -38,4 +39,12 @@ public interface ReplyTextService extends BaseDAO<ReplyText> {
 	 * @param uuid
 	 */
 	public void delete(String uuid);
+	
+	/**
+	 * 根据关键词获取文本回复
+	 * @param keyword 关键词
+	 * @param platform 公众平台
+	 * @return
+	 */
+	public ReplyText getByKeyword(String keyword, Platform platform);
 }

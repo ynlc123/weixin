@@ -15,8 +15,8 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
-    <script src="flat-ui/js/vendor/html5shiv.js"></script>
-    <script src="flat-ui/js/vendor/respond.min.js"></script>
+    <script src="/plugin/flat-ui/js/vendor/html5shiv.js"></script>
+    <script src="/plugin/flat-ui/js/vendor/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -35,9 +35,7 @@
 	        <div class="form-group">
 	            <label for="myEditor" class="col-sm-2 control-label">内容</label>
 	            <div class="col-sm-10">
-	                <script type="text/plain" id="myEditor" name="content" style="width:650px;height:240px;">
-                      <p></p>
-                    </script>
+	                <script type="text/plain" id="myEditor" name="content" style="width:650px;height:240px;"></script>
                     <span class="help-block" id="content-tips"></span>
 	            </div>
 	        </div>

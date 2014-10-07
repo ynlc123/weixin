@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.SingleImageTextMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="singleImageText">
+		insert into singleImageText(uuid,keywords,title,image_id,content,createTime,status,platform_id)
+					values(#{uuid},#{keywords},#{title},#{image.id},#{content},#{createTime},#{status},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="singleImageText">
+		update singleImageText set keywords=#{keywords},title=#{title},image_id=#{image.id},editTime=#{editTime} where uuid=#{uuid}
+	</update>
+	
+	<!-- 查找 -->
+	<select id="find" parameterType="string"  resultMap="singleImageTextResultMap">
+		select * from singleImageText where id=#{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="string">
+		delete from singleImageText where uuid=#{uuid}
+	</delete>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map"  resultMap="singleImageTextResultMap">
+		select * from singleImageText
+		<where>
+			platform_id = #{platform.id}
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="keywords != null">
+				and keywords = #{keywords}
+			</if>
+		</where>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量 -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from singleImageText
+		<where>
+			platform_id = #{platform.id}
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="keywords != null">
+				and keywords = #{keywords}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据关键词获取 -->
+	<select id="getByKeywords"  resultMap="singleImageTextResultMap">
+		select * from singleImageText
+		<where>
+			keywords=#{keyword} and platform_id=#{platform.id}
+			<if test="status != -1">
+			and status=#{status}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更改状态 -->
+	<update id="setStatus">
+		update singleImageText set status=#{status} where uuid=#{uuid}
+	</update>
+	
+	<!-- 根据uuid获取 -->
+	<select id="getByUuid" parameterType="string" resultMap="singleImageTextResultMap">
+		select * from singleImageText where uuid=#{uuid}
+	</select>
+	
+	<!-- resultMap -->
+	<resultMap type="singleImageText" id="singleImageTextResultMap">
+		<id property="id" column="id"/>
+		<association property="image" column="image_id" select="com.luoshengsha.onegreen.mapper.ImageMapper.find"/>
+	</resultMap>
+</mapper>

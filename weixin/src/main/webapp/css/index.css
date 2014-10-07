@@ -1,0 +1,14 @@
+.gongneng {
+	margin-top:10px;
+}
+
+.gongneng .row div > img {
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.gongneng .row div > i {
+	font-size: 12px;
+	font-style: normal;
+}

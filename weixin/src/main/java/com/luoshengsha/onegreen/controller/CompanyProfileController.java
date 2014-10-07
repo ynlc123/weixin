@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -108,5 +109,25 @@ public class CompanyProfileController {
 			logger.error("更新公司简介失败", e);
 			WebUtil.print2JsonMsg(response, false, "更新公司简介失败！");
 		}
+    }
+    
+    /**
+     * 查看公司简介
+     * @param originalId
+     * @return
+     */
+    @RequestMapping(value="/view/profile.htm")
+    public ModelAndView view(@RequestParam(value="originalId") String originalId, HttpServletRequest request) {
+    	try {
+			Platform platform = platformService.getByOriginalId(originalId);
+			CompanyProfile profile = profileService.getByPlatform(platform);
+			request.setAttribute("platform", platform);
+			
+			return new ModelAndView("view/profile", "profile", profile);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
     }
 }

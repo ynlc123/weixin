@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.MutipleImageTextMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="mutipleImageText" keyProperty="id" useGeneratedKeys="true">
+		insert into mutipleImageText(uuid,keywords,createTime,editTime,type,status,platform_id)
+		values(#{uuid},#{keywords},#{createTime},#{editTime},#{type},#{status},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="mutipleImageText">
+		update mutipleImageText set keywords=#{keywords},editTime=#{editTime},type=#{type},status=#{status} where id=#{id}
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="string">
+		delete from mutipleImageText where uuid=#{uuid}
+	</delete>
+	
+	<!-- resultMap -->
+	<resultMap type="mutipleImageText" id="mutipleImageTextResultMap">
+		<id property="id" column="id"/>
+		<collection property="articles" column="id" ofType="article" select="com.luoshengsha.onegreen.mapper.ArticleMapper.getMutipleImageTextArticles"/>
+	</resultMap>
+	
+	<!-- 根据id查找 -->
+	<select id="find" parameterType="int" resultMap="mutipleImageTextResultMap">
+		select * from mutipleImageText where id=#{id}
+	</select>
+	
+	<!-- 根据uuid查找 -->
+	<select id="getByUuid" parameterType="string" resultMap="mutipleImageTextResultMap">
+		select * from mutipleImageText where uuid=#{uuid}
+	</select>
+	
+	<!-- 根据关键词查找 -->
+	<select id="getByKeywords" parameterType="string" resultMap="mutipleImageTextResultMap">
+		select * from mutipleImageText 
+		<where>
+			keywords=#{keyword} and platform_id=#{platform.id}
+			<if test="status != -1">
+			and status=#{status}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="map" resultMap="mutipleImageTextResultMap">
+		select a.* from mutipleImageText a
+		left join mutipleImageText_article ab on ab.mutipleImageText_id=a.id
+		left join article b on ab.article_id=b.id
+		<where>
+			a.platform_id=#{platform.id}
+		</where>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		limit #{index},#{max}
+	</select>
+	
+	<!-- 获取数量（与查询配合使用） -->
+	<select id="getCount" parameterType="map" resultType="int">
+		select count(*) from mutipleImageText a
+		left join mutipleImageText_article ab on ab.mutipleImageText_id=a.id
+		left join article b on ab.article_id=b.id
+		<where>
+			a.platform_id=#{platform.id}
+		</where>
+	</select>
+	
+	<!-- 设置是否禁用 -->
+	<update id="setStatus">
+		update mutipleImageText set status=#{status} where uuid=#{uuid}
+	</update>
+	
+	<!-- 保存自动回复与文章的关系 -->
+	<insert id="saveImageTextArticle">
+		insert into mutipleImageText(mutipleImageText_id,article_id) values(#{imageText.id},#{article.id})
+	</insert>
+	
+	<!-- 删除自动回复与文章的关系 -->
+	<delete id="delImageTextArticle" parameterType="mutipleImageText">
+		delete from mutipleImageText_article where mutipleImageText_id=#{id}
+	</delete>
+</mapper>

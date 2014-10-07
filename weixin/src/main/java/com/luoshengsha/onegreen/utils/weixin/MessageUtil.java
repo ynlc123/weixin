@@ -12,6 +12,9 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.luoshengsha.onegreen.bean.weixin.res.Item;
+import com.luoshengsha.onegreen.bean.weixin.res.ResMusicMessage;
+import com.luoshengsha.onegreen.bean.weixin.res.ResNewsMessage;
 import com.luoshengsha.onegreen.bean.weixin.res.ResTextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -21,8 +24,9 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
  * 消息工具类
- * @author luoshengsha
- * @date 2014年8月26日 下午3:04:22
+ * 
+ * @author liufeng
+ * @date 2013-05-19
  */
 public class MessageUtil {
 
@@ -131,6 +135,29 @@ public class MessageUtil {
 	}
 
 	/**
+	 * 音乐消息对象转换成xml
+	 * 
+	 * @param musicMessage 音乐消息对象
+	 * @return xml
+	 */
+	public static String musicMessageToXml(ResMusicMessage musicMessage) {
+		xstream.alias("xml", musicMessage.getClass());
+		return xstream.toXML(musicMessage);
+	}
+
+	/**
+	 * 图文消息对象转换成xml
+	 * 
+	 * @param newsMessage 图文消息对象
+	 * @return xml
+	 */
+	public static String newsMessageToXml(ResNewsMessage newsMessage) {
+		xstream.alias("xml", newsMessage.getClass());
+		xstream.alias("item", new Item().getClass());
+		return xstream.toXML(newsMessage);
+	}
+
+	/**
 	 * 扩展xstream，使其支持CDATA块
 	 * 
 	 * @date 2013-05-19
@@ -141,6 +168,7 @@ public class MessageUtil {
 				// 对所有xml节点的转换都增加CDATA标记
 				boolean cdata = true;
 
+				@SuppressWarnings("unchecked")
 				public void startNode(String name, Class clazz) {
 					super.startNode(name, clazz);
 				}

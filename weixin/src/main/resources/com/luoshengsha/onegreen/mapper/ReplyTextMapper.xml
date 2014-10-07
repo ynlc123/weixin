@@ -53,4 +53,9 @@
 			platform_id=#{platform.id}
 		</where>
 	</select>
+	
+	<!-- 根据关键词获取文本回复 -->
+	<select id="getByKeyword" resultType="replyText">
+		select * from replyText where keywords=#{keyword} and platform_id=#{platform.id}
+	</select>
 </mapper>

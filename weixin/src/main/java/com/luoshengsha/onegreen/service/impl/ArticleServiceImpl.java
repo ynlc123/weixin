@@ -1,5 +1,7 @@
 package com.luoshengsha.onegreen.service.impl;
 
+import java.io.Serializable;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -41,7 +43,17 @@ public class ArticleServiceImpl extends DAOSupport<Article> implements
 	}
 
 	@Override
-	public void forbid(String uuid) {
-		mapper.forbid(uuid);
+	public void forbid(Serializable uuid) {
+		mapper.setStatus(uuid, 0);
+	}
+
+	@Override
+	public void enable(Serializable uuid) {
+		mapper.setStatus(uuid, 1);
+	}
+
+	@Override
+	public void delete(Serializable uuid) {
+		mapper.delete(uuid);
 	}
 }

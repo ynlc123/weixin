@@ -3,11 +3,13 @@ package com.luoshengsha.onegreen.controller;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -74,5 +76,25 @@ public class LinkUsController {
 			logger.error("更新联系我们失败", e);
 			WebUtil.print2JsonMsg(response, false, "编辑失败！");
 		}
+    }
+    
+    /**
+     * 查看联系我们
+     * @param originalId
+     * @return
+     */
+    @RequestMapping(value="/view/linkus.htm")
+    public ModelAndView view(@RequestParam(value="originalId") String originalId, HttpServletRequest request) {
+    	try {
+			Platform platform = platformService.getByOriginalId(originalId);
+			LinkUs linkUs = linkUsService.getByPlatform(platform);
+			request.setAttribute("platform", platform);
+			
+			return new ModelAndView("view/linkUs", "linkUs", linkUs);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
     }
 }

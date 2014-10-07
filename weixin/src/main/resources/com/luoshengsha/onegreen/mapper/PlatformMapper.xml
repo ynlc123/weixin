@@ -36,4 +36,9 @@
 	<select id="getByAppID" parameterType="string" resultType="platform">
 		select * from platform where appId=#{appId}
 	</select>
+	
+	<!-- 根据id获取公众平台 -->
+	<select id="find" parameterType="int" resultType="platform">
+		select * from platform where id=#{id}
+	</select>
 </mapper>

@@ -10,11 +10,12 @@
     <link href="/plugin/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/plugin/flat-ui/css/flat-ui.css" rel="stylesheet">
     <link href="/css/common.css" rel="stylesheet">
+    <link href="/plugin/artDialog/ui-dialog.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
-    <script src="flat-ui/js/vendor/html5shiv.js"></script>
-    <script src="flat-ui/js/vendor/respond.min.js"></script>
+    <script src="/plugin/flat-ui/js/vendor/html5shiv.js"></script>
+    <script src="/plugin/flat-ui/js/vendor/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -22,14 +23,14 @@
     <%@ include file="../navbar.jsp" %>
 	<!--活动列表-->
 	<div class="container content">
-	    <h6 style="font-weight: bold">文章列表</h6>
+	    <h6 style="font-weight: bold;display:inline;">文章列表</h6>
+	    <a href="/center/article/new.htm" class="btn btn-primary btn-sm pull-right">新增文章</a>
 	    <table class="table table-hover table-striped">
 	        <thead>
 	        <tr>
 	            <th>序号</th>
 	            <th>标题</th>
 	            <th>发布时间</th>
-	            <th>类型</th>
 	            <th>状态</th>
 	            <th>操作</th>
 	        </tr>
@@ -40,17 +41,27 @@
 		            <td>${status.index+1 }</td>
 		            <td><a href="#">${article.title }</a></td>
 		            <td><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd" /></td>
-		            <td>${article.type.name }</td>
 		            <td>
 		            	<c:if test="${article.status==1 }">正常</c:if>
 			            <c:if test="${article.status==0 }"><i style="font-style:normal;color:#ff0000;">已禁用</i></c:if>
 		            </td>
-		            <td>
-		            	<c:if test="${article.status==1 }"><a href="#">关闭</a>|<a href="/center/article/edit.htm?uuid=${article.uuid }" target="_blank">修改</a></c:if>
-			            <c:if test="${article.status==0 }"><a href="#">启用</a>|<a href="/center/article/edit.htm?uuid=${article.uuid }" target="_blank">修改</a></c:if>
+		            <td data-id="${article.uuid }">
+		            	<c:if test="${article.status==1 }"><a href="javascript:;" class="btn btn-warning btn-xs forbid">禁用</a></c:if>
+			            <c:if test="${article.status==0 }"><a href="javascript:;" class="btn btn-success btn-xs enable">启用</a></c:if>
+			            <a href="/center/article/edit.htm?uuid=${article.uuid }" target="_blank" class="btn btn-info btn-xs">编辑</a>
+			            <a href="javascript:;" class="btn btn-danger btn-xs delete">删除</a>
 		            </td>
 		        </tr>
 	        	</c:forEach>
+	        	<c:if test="${empty pageView.records }">
+		        <tr>
+		        	<td colspan="5">
+		        		<div class="alert alert-warning text-center" style="height: 100px;line-height: 100px;" role="alert">
+		        			您还没有表文章！<a href="/center/article/new.htm" class="btn btn-primary btn-sm">新增文章</a>
+		        		</div>
+		        	</td>
+		        </tr>
+		        </c:if>
 	        </tbody>
 	    </table>
 	</div>
@@ -86,5 +97,9 @@
 	<%@ include file="../footer.jsp" %>
 	<script src="/plugin/jquery.1.11.1-min.js"></script>
 	<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/plugin/artDialog/dialog-min.js"></script>
+	<script src="/plugin/base64.js"></script>
+	<script src="/js/tips.js"></script>
+	<script src="/js/article_list.js"></script>
 </body>
 </html>

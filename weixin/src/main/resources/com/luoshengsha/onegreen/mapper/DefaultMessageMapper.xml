@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.luoshengsha.onegreen.mapper.DefaultMessageMapper">
+	<!-- 保存 -->
+	<insert id="save" parameterType="defaultMessage">
+		insert into defaultMessage(content,editTime,platform_id) values(#{content},#{editTime},#{platform.id})
+	</insert>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="defaultMessage">
+		update defaultMessage set content=#{content},editTime=#{editTime} where id=#{id}
+	</update>
+	
+	<!-- 根据平台获取 -->
+	<select id="getByPlatform" parameterType="platform" resultType="defaultMessage">
+		select * from defaultMessage where platform_id=#{id}
+	</select>
+</mapper>

@@ -1,5 +1,9 @@
 package com.luoshengsha.onegreen.mapper;
 
+import java.io.Serializable;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.luoshengsha.onegreen.bean.Article;
 
 /**
@@ -21,14 +25,15 @@ public interface ArticleMapper extends BaseMapper<Article> {
 	public void increaseViews(String uuid);
 	
 	/**
-	 * 禁用文章（假删除）
+	 * 设置单图文回复状态
 	 * @param uuid
+	 * @param status
 	 */
-	public void forbid(String uuid);
+	public void setStatus(@Param(value="uuid") Serializable uuid, @Param(value="status") int status);
 	
 	/**
 	 * 根据uuid删除文章
 	 * @param uuid
 	 */
-	public void delete(String uuid);
+	public void delete(Serializable uuid);
 }

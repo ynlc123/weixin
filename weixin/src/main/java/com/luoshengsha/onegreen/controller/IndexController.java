@@ -1,6 +1,7 @@
 package com.luoshengsha.onegreen.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
+	
+	@ModelAttribute(value="nav")
+	public String getNav() {
+		return "index";
+	}
 	
 	@RequestMapping(value="/index.htm")
 	public String index() {

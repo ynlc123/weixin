@@ -6,6 +6,7 @@
 	<!-- resultMap -->
 	<resultMap type="companyProfile" id="companyProfileResultMap">
 		<id property="id" column="id"/>
+		<association property="platform" column="platform_id" select="com.luoshengsha.onegreen.mapper.PlatformMapper.find"/>
 		<collection property="images" column="id" select="getProfileImages"/>
 	</resultMap>
 	

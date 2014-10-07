@@ -1,5 +1,7 @@
 package com.luoshengsha.onegreen.service;
 
+import java.io.Serializable;
+
 import com.luoshengsha.onegreen.bean.Article;
 
 /**
@@ -27,8 +29,20 @@ public interface ArticleService extends BaseDAO<Article> {
 	public void increaseViews(String uuid);
 	
 	/**
-	 * 禁用文章（假删除）
+	 * 禁用
 	 * @param uuid
 	 */
-	public void forbid(String uuid);
+	public void forbid(Serializable uuid);
+	
+	/**
+	 * 启用
+	 * @param uuid
+	 */
+	public void enable(Serializable uuid);
+	
+	/**
+	 * 根据uuid删除多图文回复
+	 * @param uuid
+	 */
+	public void delete(Serializable uuid);
 }

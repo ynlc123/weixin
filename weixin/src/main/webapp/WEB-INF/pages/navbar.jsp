@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div class="container">
+<div class="container-fluid">
     <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -13,15 +13,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">米戈网</a>
+                <a class="navbar-brand" href="/index.htm">米戈网</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">首页</a></li>
+                    <li <c:if test="${nav=='index' }">class="active"</c:if>><a href="/index.htm">首页</a></li>
                     <li><a href="#">产品介绍</a></li>
-                    <li><a href="#">成功案例</a></li>
+                    <li <c:if test="${nav=='case' }">class="active"</c:if>><a href="/case.htm">经典案例</a></li>
                     <li><a href="#">关于我们</a></li>
                     <c:if test="${not empty loginCustomer }">
                     <li class="dropdown">
@@ -33,9 +33,9 @@
                             <li><a href="/center/platform.htm">公众号设置</a></li>
                             <li><a href="/center/defReplyMsg.htm">默认自动回复</a></li>
                             <li><a href="/center/autoReplyText/list.htm">管理文本回复</a></li>
-                            <li><a href="/center/autoReplyArticle/list.htm">管理图文回复</a></li>
+                            <li><a href="/center/singleImageText/list.htm">管理单图文回复</a></li>
+                            <li><a href="/center/mutipleImageText/list.htm">管理多图文回复</a></li>
                             <li class="divider"></li>
-                            <li><a href="/center/article/addui.htm">新增文章</a></li>
                             <li><a href="/center/article/list.htm">文章列表</a></li>
                             <li><a href="/center/activities/list.htm">活动列表</a></li>
                             <li class="divider"></li>

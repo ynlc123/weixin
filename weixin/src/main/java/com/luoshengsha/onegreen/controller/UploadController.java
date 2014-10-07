@@ -62,9 +62,10 @@ public class UploadController {
  
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
-                
+      System.out.println("rootPath: " + rootPath);          
                 Calendar cal = Calendar.getInstance(); 
-                String directoryPath = "D:/server/apache-tomcat-7.0.54_1/webapps"+"/images/" + cal.get(Calendar.YEAR) + "/" + 
+                //String directoryPath = "D:/server/apache-tomcat-7.0.54_1/webapps"+"/images/" + cal.get(Calendar.YEAR) + "/" +
+                String directoryPath = rootPath + "/webapps"+"/up_images/" + cal.get(Calendar.YEAR) + "/" +
   					   fillupDecimal(cal.get(Calendar.MONTH)+1, "0", 2) + "/" 
   					   + fillupDecimal(cal.get(Calendar.DAY_OF_MONTH), "0", 2);
                 /*String directoryPath = rootPath+"/images/" + cal.get(Calendar.YEAR) + "/" + 
@@ -84,7 +85,7 @@ public class UploadController {
                 stream.write(bytes);
                 stream.close();
                 
-                String picPath = directoryPath.substring(directoryPath.indexOf("images"))+"/"+fileName;
+                String picPath = directoryPath.substring(directoryPath.indexOf("up_images"))+"/"+fileName;
                 
                 Image image = new Image();
                 image.setUuid(IdGenerator.generateId());
@@ -95,10 +96,10 @@ public class UploadController {
                 imageService.save(image);
                 
                 logger.info("Server File Location=" + serverFile.getAbsolutePath());
-                //response.getWriter().print("{\"success\":"+true+",\"id\":\""+image.getUuid()+"\"}");
+                response.getWriter().print("{\"success\":"+true+",\"id\":\""+image.getUuid()+"\"}");
                 //response.getWriter().print("{\"original\":\"1\",\"url\":\"http://localhost:8080/" + picPath+"\",\"title\":\"2\",\"state\":\"SUCCESS\"}");
-                String rs = "{\"name\":\"13511411655689529.jpg\", \"originalName\": \"Hydrangeas.jpg\", \"size\": 595284, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"images/2014/09/25/2463b711-0a92-4719-a9bc-f6f58c2413b1.jpg\"}";
-                response.getWriter().print(rs);
+                //String rs = "{\"name\":\"13511411655689529.jpg\", \"originalName\": \"Hydrangeas.jpg\", \"size\": 595284, \"state\": \"SUCCESS\", \"type\": \".jpg\", \"url\": \"images/2014/09/25/2463b711-0a92-4719-a9bc-f6f58c2413b1.jpg\"}";
+                //response.getWriter().print(rs);
             } catch (Exception e) {
                 //return "You failed to upload " + name + " => " + e.getMessage();
             }

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.luoshengsha.onegreen.bean.Platform;
 import com.luoshengsha.onegreen.bean.ReplyText;
 import com.luoshengsha.onegreen.mapper.ReplyTextMapper;
 import com.luoshengsha.onegreen.mapper.BaseMapper;
@@ -48,6 +49,12 @@ public class ReplyTextServiceImpl extends DAOSupport<ReplyText>
 	@Override
 	public void delete(String uuid) {
 		mapper.delete(uuid);
+	}
+
+	@Override
+	public ReplyText getByKeyword(String keyword, Platform platform) {
+		System.out.println("-------"+keyword+"---------");
+		return mapper.getByKeyword(keyword, platform);
 	}
 
 }
